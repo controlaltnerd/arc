@@ -40,6 +40,4 @@ Each scenario uses Given/When/Then structure:
 
 ## Creating Test Specifications
 
-Use the template at `.github/templates/test-spec.template.md` to create new test specifications.
-
-Follow the instantiation guidelines in `.github/instructions/instantiate-template.instructions.md`.
+Use the `test-spec` skill to create new test specifications. The skill includes templates and guidelines for creating properly formatted test specifications.

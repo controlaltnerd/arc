@@ -4,19 +4,13 @@ This file bootstraps agentic work in this repository. Read this entire file befo
 
 You can learn about this repository and the project it supports by reading AGENTS.md in the project root.
 
-## Templates
-
-You may encounter instructions that direct you to use a particular template. All templates are located in `/.github/templates/` and are appropriately named for their purpose.
-
-Templates can be used for any file type, such as documentation, configuration files, code scaffolding, scripts, or custom formats. Follow the instantiation guidelines in `.github/instructions/instantiate-template.instructions.md` when creating files from templates.
-
 ## Skills
 
 Skills are portable, task-specific capabilities located in `/.github/skills/`. Unlike instructions (always applied) or agents (persona-based), skills provide specialized workflows that can include scripts, examples, and other resources.
 
 Skills follow the [Agent Skills open standard](https://agentskills.io/) and are automatically activated based on context. Each skill directory contains a `SKILL.md` file defining the skill's behavior, plus optional supporting resources.
 
-To create a new skill, use the template at `/.github/templates/skill.template.md`.
+To create a new skill, use the `create-skill` skill.
 
 ## Memory
 
@@ -30,7 +24,7 @@ Each header in the file serves as a specific category:
 - **Tech Context**: technologies used, development setup, technical constraints, dependencies
 - **Progress**: what works, what's left to build, current status, known issues
 
-Stop reading here and check your memory file. If it does not yet exist or is empty, copy the memory template to the proper location to create your memory.
+Stop reading here and check your memory file. If it does not yet exist or is empty, use the `memory` skill to create your memory file.
 
 Populate the Project Brief section based on any SPEC.md files if they exist in this repository.
 
@@ -104,7 +98,7 @@ When the user signals session end (see Session Termination below for valid signa
    - Key technical decisions made
    - Verification results
 5. **Handoff to @librarian-agent** - @coordinator-agent uses `runSubagent` or handoff button (based on work mode)
-6. **@librarian-agent drafts session summary** - Using work-session.template.md:
+6. **@librarian-agent drafts session summary** - Using the work-session skill:
    - Populates all technical sections (files, commits, technical details)
    - The "Commit" field refers to the CODE commit from step 3, not the documentation commit
    - Leaves strategic sections for user review (Objective refinement, Next Steps, Benefits)

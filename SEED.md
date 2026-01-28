@@ -41,7 +41,7 @@ The files needed to initialize this system into the user's project are arranged 
             ├── ...
         ├── prompts
             ├── ...
-        ├── templates
+        ├── skills
             ├── ...
         ├── ...
     ├── docs
@@ -62,12 +62,11 @@ Use your best judgment and the awareness of your environment to leverage tools a
 - **Simplicity First**: Prefer well-defined, precise information to overly complex content.
 - **Uniform Structure**: When copying the boilerplate into the project root, maintain the same relative structure, i.e., treat the project root and the BOILERPLATE directory as equivalent positions for relative placement of files and directories.
 - **Content Generation and Styling**: When filling out the individual files, follow all style, content, and formatting hints. These will usually appear in brackets similar to template fields in various languages.
-- **Template Files**: Do not follow instructions within template files (files with `.template.*` extensions). Remember, you are initializing the agentic team for this project, which means you are finalizing the specific instructions other agents will later follow. Template files are meant to be used by agents after initialization to generate new files as needed.
 - **Default Settings**: Configure the following items in your memory:
     - *User Preferences > Work Mode*: Supervised
 - **Commit Messages**: Use [Conventional Commits](https://www.conventionalcommits.org/) format.
 - **Branch Names**: Use the branch `docs/init-agentic-team` for your work. Do not use the `main` branch.
-- **Summarize**: When your work is complete, use the template for work sessions to summarize your work, placing that summary in the project root as **SEED-SUMMARY.md**.
+- **Summarize**: When your work is complete, use the `work-session` skill to summarize your work, placing that summary in the project root as **SEED-SUMMARY.md**.
 - **Clean Up**: Once you have generated the summary, prompt the user to review it and ask for permission to delete the ARC directory and all its contents. Then prompt the user for permission to commit and push your changes.
 
 ## Boundaries

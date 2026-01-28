@@ -211,7 +211,7 @@ When the user indicates work session should end (says "done", "wrap up", "finish
 1. **Verify Completion**: Ensure all requested work is finished
 2. **Version Control**: Offer handoff to @maintainer to commit changes
 3. **Documentation** (after maintainer returns):
-   - **Autonomous/Supervised modes**: Use runSubagent to ask @librarian to create work session summary from template, create ADR if needed, and update memory
+   - **Autonomous/Supervised modes**: Use runSubagent to ask @librarian to create work session summary, create ADR if needed, and update memory
    - **Orchestrated mode**: Offer handoff to @librarian for documentation updates
 4. **Final Review**: Confirm all session tasks are properly documented
 

@@ -165,8 +165,7 @@ The complete template with all sections and guidance is available at [assets/tem
 
 **Templates** (`assets/`):
 - Use for reusable file structures
-- Follow template conventions from `.github/templates/README.md`
-- Include YAML frontmatter with placeholders
+- Include YAML frontmatter with placeholders to define template variables
 - Reference in "Template Reference" section
 
 **Scripts** (`scripts/`):

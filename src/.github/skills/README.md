@@ -29,11 +29,7 @@ Skills use progressive disclosure for efficient context usage:
 
 ## Creating Skills
 
-Use the skill template to create new skills:
-
-```
-/.github/templates/skill.template.md
-```
+Use the `create-skill` skill to create new skills with proper structure, naming, and organization.
 
 ### Directory Structure
 

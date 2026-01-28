@@ -59,7 +59,6 @@ After installation, ARC provides several components to structure agent behavior:
 | **Agents** | `.github/agents/` | Specialized AI personas (Coordinator, Architect, Coder, etc.) |
 | **Rules** | `.github/instructions/` | Coding standards applied via glob patterns |
 | **Commands** | `.github/prompts/` | Reusable user-invoked prompt files |
-| **Templates** | `.github/templates/` | File scaffolding blueprints |
 | **Skills** | `.github/skills/` | Portable, task-specific capabilities with scripts and resources |
 
 ### Getting Started
