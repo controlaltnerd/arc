@@ -62,10 +62,24 @@ Use your best judgment and the awareness of your environment to leverage tools a
 - **Content Generation and Styling**: When filling out the individual files, follow all style, content, and formatting hints. These will usually appear in brackets similar to template fields in various languages.
 - **Default Settings**: Configure the following items in your memory:
     - *User Settings > Work Mode*: Supervised
+- **Clean Copy**: Do not otherwise modify any other files within the `.github` directory after copying. Also do not modify ROADMAP.md or CHANGELOG.md.
 - **Commit Messages**: Use [Conventional Commits](https://www.conventionalcommits.org/) format.
 - **Branch Names**: Use the branch `docs/init-agentic-team` for your work. Do not use the `main` branch.
 - **Summarize**: When your work is complete, use the `work-session` skill to summarize your work, placing that summary in `/docs/work-sessions` as **001-SEED-SUMMARY.md**.
-- **Clean Up**: Once you have generated the summary, prompt the user to review it and ask for permission to delete the ARC directory and all its contents. Then prompt the user for permission to commit and push your changes.
+- **Request Review**: When you've finished the summary, let the user know that installation is complete and ready for their review, with the following message:
+
+```
+ARC has been successfully installed! Most of the files added to your project have been placed into the `.github` directory. The majority of files were copied without modification, and you don't need to review them, but the following files have been customized and should be reviewed:
+
+- `AGENTS.md`
+- `SPEC.md`
+- `/docs/work-sessions/001-SEED-SUMMARY.md`
+
+When you have confirmed you are done reviewing, I will clean up the installer.
+```
+
+- **Clean Up**: Once the user has confirmed they have reviewed the installation, delete the ARC directory and all its contents. Then prompt the user for permission to commit and push your changes.
+- **Next Steps**: Suggest that the user start a new chat to initialize ARC for the first time, and that they have the next agent review the repository to assist the user with filling out the ROADMAP.
 
 ## Boundaries
 
