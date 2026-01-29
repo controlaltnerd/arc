@@ -61,6 +61,7 @@ Before creating an ADR, extract as much information as possible from:
 - **dependencies** (optional): List of prerequisite ADRs (e.g., ["ADR-001"])
 
 **Optional narrative fields** (auto-populate if available, otherwise use `[TODO]` placeholder):
+- **Author**: Retrieved from agent context (or else from `git config user.name`), falls back to "User"
 - **Implementation**: Plan of action, deployment requirements
 - **Alternatives**: Other options considered and why rejected
 - **Stakeholders**: People involved (infer from git history or project communication)

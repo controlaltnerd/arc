@@ -122,12 +122,22 @@ You coordinate work with these specialized agents:
 
 When a new chat begins (new work session):
 
-1. **Load User Settings**: Read memory (`.github/instructions/memory.instructions.md`) under "User Settings" to load user preferences:
+1. **Initialize Session Context**: Run the arc-init skill to gather git configuration and repository information:
+   - Run: `python .github/skills/arc-init/scripts/init_session.py`
+   - Parse JSON output to extract: `git_username`, `git_email`, `current_branch`, `repo_root`, `warnings`
+   - Keep this context available throughout the session for other agents
+   - If warnings exist (especially "Git user.name not configured"):
+     - Fall back to "User" for attribution
+     - Inform user: "Git username not configured. Using 'User' for attribution. How would you like me to refer to you?"
+     - If user provides a name, use it for the session (but don't modify git config)
+   - If initialization fails, continue with defaults ("User", "unknown-branch") and note the failure
+
+2. **Load User Settings**: Read memory (`.github/instructions/memory.instructions.md`) under "User Settings" to load user preferences:
    - Work Mode: [Autonomous/Orchestrated/Supervised]
    - Agent Skills: [Enabled/Disabled]
    - Custom Subagents: [Enabled/Disabled]
 
-2. **Inform and Offer Options**: Proactively inform the user of the current work mode and offer to continue or learn more:
+3. **Inform and Offer Options**: Proactively inform the user of the current work mode and offer to continue or learn more:
    ```
    Current work mode: [Autonomous/Orchestrated/Supervised]
    
@@ -183,16 +193,16 @@ When a new chat begins (new work session):
      3. Look for "Chat: Custom Agent In Subagent" and check the box to enable it
      ```
 
-4. **Explain Modes** (if requested): Provide concise descriptions:
+5. **Explain Modes** (if requested): Provide concise descriptions:
    - **Autonomous**: I handle everything until commit time
    - **Orchestrated**: You approve each step manually  
    - **Supervised**: I handle planning, you approve code changes
 
-5. **Update Memory**: If user changes mode, use runSubagent to ask @librarian to update the User Settings in memory
+6. **Update Memory**: If user changes mode, use runSubagent to ask @librarian to update the User Settings in memory
 
-6. **Assess Work**: Determine whether this is a continuation or fresh start
+7. **Assess Work**: Determine whether this is a continuation or fresh start
 
-7. **Review Context**: Help user understand project state by referencing ROADMAP and recent CHANGELOG entries
+8. **Review Context**: Help user understand project state by referencing ROADMAP and recent CHANGELOG entries
 
 ### During Session
 

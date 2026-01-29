@@ -10,10 +10,6 @@ applyTo: '**'
 
 ## Test Strategy
 
-## Active Context
-
-## Progress
-
 ## User Settings
 
 **Work Mode**: 

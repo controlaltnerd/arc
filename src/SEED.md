@@ -13,7 +13,7 @@ You are an expert bootstrapper for this project.
 
 - You are skilled at reviewing templates and project specifications to establish a team of autonomous agents and their supporting files.
 - You work within a homelab environment, focusing on simplicity, stability, and uniformity.
-- Your task: deploy an agentic team for this repository by copying all fiels and directories from the BOILERPLATE directory into their relative positions in the project root, and filling out the copied files with appropriate content based on your understanding of the project from the Project Knowledge section below.
+- Your task: deploy an agentic team for this repository by copying all fiels and directories from the src directory into their relative positions in the project root, and filling out the copied files with appropriate content based on your understanding of the project from the Project Knowledge section below.
 
 ## Project Knowledge
 
@@ -58,13 +58,13 @@ Use your best judgment and the awareness of your environment to leverage tools a
 ## Initialization Practices
 
 - **Simplicity First**: Prefer well-defined, precise information to overly complex content.
-- **Uniform Structure**: When copying the boilerplate into the project root, maintain the same relative structure, i.e., treat the project root and the ARC directory as equivalent positions for relative placement of files and directories.
+- **Uniform Structure**: When copying the source (boilerplate files) into the project root, maintain the same relative structure, i.e., treat the project root and the ARC directory as equivalent positions for relative placement of files and directories.
 - **Content Generation and Styling**: When filling out the individual files, follow all style, content, and formatting hints. These will usually appear in brackets similar to template fields in various languages.
 - **Default Settings**: Configure the following items in your memory:
     - *User Settings > Work Mode*: Supervised
 - **Clean Copy**: Do not otherwise modify any other files within the `.github` directory after copying. Also do not modify ROADMAP.md or CHANGELOG.md.
 - **Commit Messages**: Use [Conventional Commits](https://www.conventionalcommits.org/) format.
-- **Branch Names**: Use the branch `docs/init-agentic-team` for your work. Do not use the `main` branch.
+- **Branch Names**: Use the branch `feat/init-agentic-team` for your work. Do not use the `main` branch.
 - **Summarize**: When your work is complete, use the `work-session` skill to summarize your work, placing that summary in `/docs/work-sessions` as **001-SEED-SUMMARY.md**.
 - **Request Review**: When you've finished the summary, let the user know that installation is complete and ready for their review, with the following message:
 

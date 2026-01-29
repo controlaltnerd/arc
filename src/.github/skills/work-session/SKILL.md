@@ -106,9 +106,10 @@ Collect the following information:
 - Status (Complete/In Progress/Blocked)
 
 **Auto-discoverable**:
+- Human contributor name (from agent context, or else from `git config user.name`, falls back to "User")
 - Files created (from git diff)
 - Files modified (from git diff)
-- Branch name (from `git branch --show-current`)
+- Branch name (from agent context, or else from `git branch --show-current`)
 - Commit hash (from `git rev-parse --short HEAD`)
 
 **From work session**:
@@ -136,6 +137,8 @@ COMMIT_HASH: Short commit hash of the CODE work (not documentation commit)
 STATUS: "Complete" | "In Progress" | "Blocked"
 FILES_CREATED_COUNT: Number of files created
 FILES_MODIFIED_COUNT: Number of files modified
+HUMAN_CONTRIBUTOR: From `git config user.name`, defaults to "User"
+AGENT_NAME: AI agent name (e.g., "GitHub Copilot")
 ```
 
 **Important Note on Commit Hash**:
