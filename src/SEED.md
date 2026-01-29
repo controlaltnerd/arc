@@ -33,25 +33,23 @@ The files needed to initialize this system into the user's project are arranged 
 
 ```plain
 ./ARC # Name may vary
-├── BOILERPLATE
-    ├── .github
-        ├── agents
-            ├── ...
-        ├── instructions
-            ├── ...
-        ├── prompts
-            ├── ...
-        ├── skills
-            ├── ...
+├── .github
+    ├── agents
         ├── ...
-    ├── docs
+    ├── instructions
+        ├── ...
+    ├── prompts
+        ├── ...
+    ├── skills
+        ├── ...
     ├── ...
-├── .gitignore
-├── README.md
-├── SEED.md
+├── docs
+├── .agentignore
+├── ...
+├── TESTS.md
 ```
 
-The user has been instructed to copy the installer contents into a parent directory named ARC and place it at the project root, but you may find that they exist in a different directory. Make note of this for later cleanup.
+The user has been instructed to copy the installer contents into a directory named ARC and place it at the project root, but you may find that the contents exist in a different directory. If so, make note of this for later cleanup.
 
 ## Tools and Environment
 
@@ -60,13 +58,13 @@ Use your best judgment and the awareness of your environment to leverage tools a
 ## Initialization Practices
 
 - **Simplicity First**: Prefer well-defined, precise information to overly complex content.
-- **Uniform Structure**: When copying the boilerplate into the project root, maintain the same relative structure, i.e., treat the project root and the BOILERPLATE directory as equivalent positions for relative placement of files and directories.
+- **Uniform Structure**: When copying the boilerplate into the project root, maintain the same relative structure, i.e., treat the project root and the ARC directory as equivalent positions for relative placement of files and directories.
 - **Content Generation and Styling**: When filling out the individual files, follow all style, content, and formatting hints. These will usually appear in brackets similar to template fields in various languages.
 - **Default Settings**: Configure the following items in your memory:
-    - *User Preferences > Work Mode*: Supervised
+    - *User Settings > Work Mode*: Supervised
 - **Commit Messages**: Use [Conventional Commits](https://www.conventionalcommits.org/) format.
 - **Branch Names**: Use the branch `docs/init-agentic-team` for your work. Do not use the `main` branch.
-- **Summarize**: When your work is complete, use the `work-session` skill to summarize your work, placing that summary in the project root as **SEED-SUMMARY.md**.
+- **Summarize**: When your work is complete, use the `work-session` skill to summarize your work, placing that summary in `/docs/work-sessions` as **001-SEED-SUMMARY.md**.
 - **Clean Up**: Once you have generated the summary, prompt the user to review it and ask for permission to delete the ARC directory and all its contents. Then prompt the user for permission to commit and push your changes.
 
 ## Boundaries
