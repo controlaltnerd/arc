@@ -16,8 +16,8 @@ applyTo: '**'
 
 ## User Settings
 
-**Work Mode**: 
+**Work Mode**: Supervised
 
 ---
 
-**Last Updated**:
+**Last Updated**: 2026.01.28

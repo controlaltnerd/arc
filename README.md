@@ -28,7 +28,7 @@ The standards around agentic control are constantly evolving, and ARC will be fr
 
 ### Basic Installation
 
-1. Clone the ARC repository into a folder named **ARC** at the root of your project.
+1. Copy the `src` directory into the root of your project and rename it `ARC`.
 2. Update line 20 of `SEED.md` with the project/repository purpose.
 3. Review lines 22-28 of `SEED.md` and do ONE of the following to provide Copilot with instructions on project knowledge:
    - **Keep lines 22-24** - Good for a new project that already has written documentation specifying its scope and constraints
@@ -37,7 +37,7 @@ The standards around agentic control are constantly evolving, and ARC will be fr
 
 4. Run the following prompt with Copilot:
    ```plain
-   Review SEED.md and carefully follow the instructions within it. Please refer any questions you have to me.
+   Review `ARC/SEED.md` and carefully follow the instructions within it. Please refer any questions you have to me.
    ```
 
    In existing projects, Copilot will review all files and customize ARC according to the seed instructions. In new projects, Copilot will work with you to customize ARC.
