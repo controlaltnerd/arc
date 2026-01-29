@@ -27,12 +27,6 @@ placeholders:
 
 ## Progress
 
-## User Settings
-
-**Work Mode**:  {{WORK_MODE}}
-**Agent Skills**: {{STATUS}}
-**Custom Subagents**: {{STATUS}}
-
 ---
 
 **Last Updated**: {{LAST_UPDATED}}

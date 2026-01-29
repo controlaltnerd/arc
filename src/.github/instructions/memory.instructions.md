@@ -10,10 +10,6 @@ applyTo: '**'
 
 ## Test Strategy
 
-## User Settings
-
-**Work Mode**: 
-
 ---
 
 **Last Updated**:

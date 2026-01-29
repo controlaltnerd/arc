@@ -189,3 +189,7 @@ dist
 # Ignore all local history of files
 .history
 .ionide
+
+### ARC Framework ###
+# User-specific settings (should not be committed)
+.github/instructions/user-settings.instructions.md

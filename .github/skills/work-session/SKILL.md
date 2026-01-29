@@ -122,7 +122,13 @@ Collect the following information:
 
 ### 3. Use the Work Session Template
 
-The template is located at [assets/work-session.template.md](assets/work-session.template.md).
+The template is located at [assets/work-session.template.md](assets/work-session.template.md). The copy you create should be named with a sequential prefix according to existing files in its destination folder, for example:
+
+```
+001-SEED-SUMMARY.md
+002-PLAN-PROJECT.md
+003-BEGIN-UX.md
+```
 
 **Template Frontmatter** (do not include in output):
 The template's first frontmatter section defines placeholders; do not include it in generated work session documents.

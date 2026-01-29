@@ -267,3 +267,7 @@ $RECYCLE.BIN/
 .directory
 .Trash-*
 .nfs*
+
+### ARC Framework ###
+# User-specific settings (should not be committed)
+.github/instructions/user-settings.instructions.md

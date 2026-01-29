@@ -6,7 +6,7 @@ This file contains important information for autonomous AI agents. Read this ent
 
 This repository contains the **ARC (Agentic Runtime Conventions)** framework - an open-source system for deploying persistent AI agent teams in IDEs. ARC provides structured Markdown-based configurations, agent personas, skills, and documentation workflows that enable LLM agents to behave consistently and produce high-quality work.
 
-**CAUTION!** This project uses the ARC framework to assist in its development, so you will find that there are active ARC files in `.github`, `docs`, and in the project root. DO NOT confuse these files with the uninitialized source files in `src`. Always confirm whether the user intends a request to target an active file or source file, if it is not clear from the user's request.
+**CAUTION!** This project uses the ARC framework to assist in its development, so you will find that there are active ARC files in `.github`, `docs`, and in the project root. DO NOT EDIT files outside of `src/` without explicit permission or instruction.
 
 ## Key Content
 
@@ -14,7 +14,7 @@ This repository contains the **ARC (Agentic Runtime Conventions)** framework - a
 - **README.md**: User-facing documentation covering installation, prerequisites, and getting started
 - **copilot-instructions.md**: Core agent behaviors, orchestration patterns, and session workflows
 - **.agentignore**: List of files/directories agents should avoid reading to maintain focus and prevent context overflow
-- **ARC/src/**: Template files for installation into user projects
+- **src/**: Template files for installation into user projects
 
 ## Conventions and Expectations
 
