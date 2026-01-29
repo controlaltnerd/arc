@@ -28,6 +28,13 @@ Example entry:
 ### Added
 - **arc-init skill**: Automatic session initialization gathering git username, email, branch, and repo root for consistent user attribution
 - **Python dependency management**: Skills can declare dependencies in frontmatter; auto-aggregated and installed at session start
+- **Branch sync detection**: Git fetch and sync state detection (behind/ahead/diverged/synced) in arc-init with timeout protection [feat/user-enhancements | b933f87]
+- **User settings separation**: Dedicated user-settings.instructions.md file for user-specific preferences, gitignored to prevent conflicts [feat/user-enhancements | b933f87]
+- **User settings template**: Template file for initializing user settings in new projects [feat/user-enhancements | b933f87]
+
+### Changed
+- **Memory skill**: Updated to clarify user settings belong in separate file, not memory [feat/user-enhancements | b933f87]
+- **Memory template**: Removed User Settings section to prevent duplication [feat/user-enhancements | b933f87]
 - **Dual file structure pattern**: Memory documents critical workflow for syncing changes between .github/ and src/
 
 ### Changed
