@@ -46,14 +46,7 @@ Skills are located in `/.github/skills/` and follow the [Agent Skills open stand
 
 Available skills in this repository:
 
-- **adr** - Manage Architecture Decision Records (ADRs) for technical decisions. Create new ADRs with auto-populated content, review existing decisions for context, and update ADR status.
-- **create-skill** - Create new agent skills with proper structure, naming, and organization, following the Agent Skills open standard.
-- **git-branch** - Create and manage git branches using consistent naming conventions. Create feature branches, bugfix branches, and other work branches following the repository's naming standards.
-- **git-commit** - Create standardized git commits using Conventional Commits specification. Analyzes diffs to determine appropriate type, scope, and message.
-- **git-push** - Workflow for requesting and executing git push operations with user approval. Handles single and multiple commits with transparent information presentation.
-- **memory** - Manage project memory to capture and retrieve reusable knowledge, lessons learned, user preferences, and common pitfalls.
-- **test-spec** - Manage test specifications using Given/When/Then format with concrete scenarios. Create new specs, update existing ones with test results, and review specs for context.
-- **work-session** - Manage work session summaries to document discrete units of work. Create, update, and review session documentation to capture objectives, implementation details, decisions, and outcomes.
+- (none yet - use the `create-skill` skill to create new skills)
 
 ## Terminal Commands You Can Use
 

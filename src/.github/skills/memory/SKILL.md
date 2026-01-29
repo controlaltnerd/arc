@@ -19,18 +19,25 @@ You can use this skill to:
 **Reading memory**:
 - Starting a new work session to understand project context
 - Researching past decisions or patterns before implementing
-- Understanding user preferences or project conventions
+- Understanding project conventions
 - Learning about known issues or common pitfalls
 - Getting up to speed on active work in progress
 
+**Reading user settings**:
+- Understanding user's preferred work mode and feature toggles
+- Checking personal preferences for the current user
+
 **Updating memory**:
 - Completing a work session with new learnings or patterns
-- User shares preferences or settings that should be remembered
 - Discovering solutions to non-trivial problems
 - Identifying and documenting common pitfalls
 - Learning new architectural patterns or technical decisions
-- User changes work mode or other configurable preferences
 - Making progress on features or fixing issues
+
+**Updating user settings**:
+- User changes work mode (Autonomous/Orchestrated/Supervised)
+- User enables or disables agent skills or custom subagents
+- User shares personal preferences to remember
 
 **Curating memory**:
 - When memory sections become cluttered or redundant
@@ -90,44 +97,55 @@ Project status and trajectory:
 - Current status
 - Known issues
 
-### User Settings
-User-configurable preferences that affect behavior:
+## User Settings (Separate File)
 
+User settings are NOT stored in memory. They are stored in a separate file: `.github/instructions/user-settings.instructions.md`
+
+**User settings include**:
 - **Work Mode**: Current work mode preference (Autonomous, Orchestrated, or Supervised)
 - **Agent Skills**: Whether agent skills are enabled (Enabled/Disabled)
 - **Custom Subagents**: Whether background custom agent delegation is enabled (Enabled/Disabled)
+- **Personal Preferences**: Any user-specific preferences (editor settings, naming conventions, etc.)
 
-## Updating User Settings
+**Why separate?**
+User settings are user-specific and should NOT be committed to version control. Multiple users working on the same project may have different preferences. The user-settings file is automatically ignored by git.
+
+## Managing User Settings
 
 When the user changes preferences:
 
-1. **Preserve all three items** even if only one is being changed
-2. **Update only the specific item** that changed; do not overwrite the others
-3. **Preserve previous values** if a setting cannot be inferred from context
-4. **Mark as "Unknown"** only if this is the first session and a value cannot be inferred
+1. **Update `.github/instructions/user-settings.instructions.md`** (not memory)
+2. **Preserve all existing settings** even if only one is being changed
+3. **Update only the specific item** that changed; do not overwrite the others
+4. **Update the timestamp** at the bottom of the file
 
 **Example**:
 If user changes Work Mode from "Supervised" to "Autonomous", but Agent Skills and Custom Subagents are already "Enabled":
 
 ```markdown
-**Work Mode**: Autonomous
+## Work Mode
+
+**Current Mode**: Autonomous
+
+## Feature Toggles
+
 **Agent Skills**: Enabled
 **Custom Subagents**: Enabled
 ```
 
-Do NOT replace the entire section and lose the other two values.
+Do NOT replace the entire file and lose the other settings.
 
 ## Reading Memory
 
 When you need to understand project context:
 
 1. **Identify what you need to know**:
-   - User preferences and settings (check User Settings)
-   - Current work in progress (check Active Context)
-   - Architectural patterns to follow (check System Patterns)
-   - Technical setup requirements (check Tech Context)
-   - Known issues or pitfalls (check Progress)
-   - Project goals and scope (check Project Brief)
+   - User preferences and settings (check user-settings.instructions.md)
+   - Current work in progress (check Active Context in memory)
+   - Architectural patterns to follow (check System Patterns in memory)
+   - Technical setup requirements (check Tech Context in memory)
+   - Known issues or pitfalls (check Progress in memory)
+   - Project goals and scope (check Project Brief in memory)
 
 2. **Scan relevant sections**:
    - Start with the section most relevant to your need
@@ -136,7 +154,7 @@ When you need to understand project context:
 
 3. **Apply knowledge**:
    - Follow established patterns and conventions
-   - Respect user preferences documented in User Settings
+   - Respect user preferences documented in user-settings
    - Avoid known pitfalls documented in memory
    - Build on existing solutions rather than reinventing
 
@@ -146,14 +164,19 @@ When you need to understand project context:
 
 Ask yourself:
 - What did we learn that would be useful in future sessions?
-- Are there user preferences or settings to capture?
+- Are there user preferences or settings to capture? (use user-settings.instructions.md)
 - Did we discover a solution to a non-obvious problem?
 - Are there patterns or practices we should follow going forward?
 - Is there active work that will continue in the next session?
 
-### 2. Choose the Right Section
+### 2. Choose the Right File and Section
 
-- **User Settings**: For work mode, feature toggles, or user preferences
+**For user-specific preferences** → use `.github/instructions/user-settings.instructions.md`:
+- **Work Mode**: For work mode changes
+- **Feature Toggles**: For agent skills or custom subagent preferences
+- **Personal Preferences**: For user-specific settings
+
+**For project knowledge** → use `.github/instructions/memory.instructions.md`:
 - **Active Context**: For work in progress or temporary blockers
 - **Progress**: For completed work, current status, or known issues
 - **System Patterns**: For architectural decisions or design patterns
@@ -178,25 +201,19 @@ As you add new entries:
 - **Maintain consistency**: Use similar phrasing and structure across sections
 - **Preserve important details**: Don't over-simplify at the cost of losing critical information
 
-## Common Memory Management Patterns
-
-### After Completing Work
-Update **Progress** and **Active Context**:
-```markdown
-## Progress
-- ✅ User authentication with JWT working
-- 🚧 Password reset flow in progress
-- ⏳ Email verification not started
-
 ## Active Context
 - Password reset email template created, needs user review before implementation
 ```
 
 ### User Changes Preference
-Update **User Settings**:
+Update **user-settings.instructions.md** (NOT memory):
 ```markdown
-## User Settings
-**Work Mode**: Autonomous
+## Work Mode
+
+**Current Mode**: Autonomous
+
+## Feature Toggles
+
 **Agent Skills**: Enabled
 **Custom Subagents**: Enabled
 ```
@@ -225,11 +242,38 @@ Add to the relevant section with clear warning:
 - Use sequential writes with `for...of` loop instead
 ```
 
-## Memory Location
+## File Locations
 
-Memory is stored at: `.github/instructions/memory.instructions.md`
+**Memory**: `.github/instructions/memory.instructions.md`  
+Use template: [assets/memory.template.md](assets/memory.template.md)
 
-Use the template at [assets/memory.template.md](assets/memory.template.md) if creating memory for the first time.
+**User Settings**: `.github/instructions/user-settings.instructions.md`  
+Use template: [assets/user-settings.template.md](assets/user-settings.template.md)
+
+## Creating Files on First Install
+
+When creating memory or user-settings files for the first time:
+
+1. **Check if files exist**:
+   ```bash
+   ls -la .github/instructions/memory.instructions.md
+   ls -la .github/instructions/user-settings.instructions.md
+   ```
+
+2. **Create memory file** (if doesn't exist):
+   - Copy template from `assets/memory.template.md`
+   - Replace `{{LAST_UPDATED}}` with current date (YYYY.MM.DD format)
+   - Save to `.github/instructions/memory.instructions.md`
+
+3. **Create user-settings file** (if doesn't exist):
+   - Copy template from `assets/user-settings.template.md`
+   - Replace `{{LAST_UPDATED}}` with current date (YYYY.MM.DD format)
+   - Save to `.github/instructions/user-settings.instructions.md`
+   - **IMPORTANT**: This file should NOT be committed (verify it's in .gitignore)
+
+4. **Verify .gitignore**:
+   - Ensure `.github/instructions/user-settings.instructions.md` is listed in `.gitignore`
+   - If not present, add it to prevent committing user-specific settings
 
 ## Best Practices
 
@@ -245,10 +289,11 @@ Use the template at [assets/memory.template.md](assets/memory.template.md) if cr
 
 ### DON'T
 
-- ❌ Overwriting User Settings when updating only one preference
+- ❌ Putting user preferences in memory (use user-settings.instructions.md instead)
+- ❌ Overwriting all user settings when updating only one preference
 - ❌ Adding duplicate information that already exists in memory
 - ❌ Writing long paragraphs instead of concise bullets
-- ❌ Forgetting to update the timestamp
+- ❌ Forgetting to update the timestamp (in both memory and user-settings)
 - ❌ Removing Active Context when work completes (move to Progress instead)
 - ❌ Adding temporary session details that won't be useful later
 - ❌ Losing important context when consolidating entries

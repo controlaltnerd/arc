@@ -19,10 +19,6 @@ applyTo: '**'
 
 ## Test Strategy
 
-## User Settings
-
-**Work Mode**: Supervised
-
 ---
 
 **Last Updated**: 2026.01.29

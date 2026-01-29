@@ -25,8 +25,14 @@ The initialization script gathers:
 2. **Git Email**: From `git config user.email` (for verification context)
 3. **Current Branch**: From `git branch --show-current`
 4. **Repository Root**: From `git rev-parse --show-toplevel`
+5. **Branch Sync Status**: Remote tracking status for all branches
+   - Current branch sync state (ahead/behind/diverged/synced)
+   - List of out-of-sync branches
+   - Suggested commands to resolve sync issues
 
 This information is presented to the user as session context and kept available for other agents throughout the conversation.
+
+NOTE: When instructed to display a message to the user, DO NOT deviate from the provided message.
 
 ## Initialization Process
 
@@ -79,7 +85,7 @@ Ensure all Python dependencies are available:
 Execute the Python script that gathers git and repository information:
 
 ```bash
-python .github/skills/arc-init/scripts/init_session.py
+python3 .github/skills/arc-init/scripts/init_session.py
 ```
 
 The script outputs JSON with the gathered information.
@@ -103,6 +109,73 @@ Session initialized:
 - Branch: [current_branch]
 - Repository: [repo_root]
 ```
+
+**Display Branch Sync Status (if out of sync):**
+
+If `branch_sync.current_branch_status` is NOT "synced" or "unknown", display sync information for the current branch:
+
+**For "behind" status:**
+```
+🔄 **Branch Sync Status**
+
+Current Branch: `[current_branch]` is **behind** `[tracking]` by [behind] commit(s)
+├─ Impact: Your local branch is missing [behind] commit(s) from the remote
+├─ Fix: `git pull --ff-only`
+└─ Result: Fast-forward your branch to include the [behind] new commit(s) from remote
+```
+
+**For "ahead" status:**
+```
+🔄 **Branch Sync Status**
+
+Current Branch: `[current_branch]` is **ahead of** `[tracking]` by [ahead] commit(s)
+├─ Impact: You have [ahead] local commit(s) not yet pushed to the remote
+├─ Fix: `git push`
+└─ Result: Push your [ahead] local commit(s) to the remote
+```
+
+**For "diverged" status:**
+```
+🔄 **Branch Sync Status**
+
+Current Branch: `[current_branch]` has **diverged** from `[tracking]`
+├─ Local: [ahead] commit(s) ahead
+├─ Remote: [behind] commit(s) behind
+├─ Impact: Your branch and the remote have different commits
+├─ Fix: `git pull --rebase` or `git pull --merge`
+└─ Result: Integrate remote changes with your local commits (may require conflict resolution)
+```
+
+**For "no_tracking" status:**
+```
+🔄 **Branch Sync Status**
+
+Current Branch: `[current_branch]` has **no remote tracking** configured
+├─ Impact: Cannot sync with remote - no upstream branch set
+├─ Fix: `git push -u origin [current_branch]`
+└─ Result: Push your branch to remote and set up tracking
+```
+
+**Display other out-of-sync branches (if any):**
+
+If there are branches in `branch_sync.out_of_sync_branches` besides the current branch:
+
+```
+Other branches out of sync:
+- `[branch_name]`: [status] [tracking] by [ahead/behind] commit(s)
+```
+
+**Add helpful tip:**
+```
+💡 Tip: Run the suggested command to sync your current branch before making new changes
+```
+
+**Handle fetch failures gracefully:**
+
+If `branch_sync.fetch_failed` is true or `branch_sync.fetch_error` is set:
+- Display the error in warnings
+- Do NOT display sync status (data may be stale)
+- Continue with session normally
 
 ### Step 4: Handle Missing Configuration
 
@@ -128,6 +201,95 @@ Keep the initialized context available throughout the session. Other agents and 
 - **Git Username**: For author attribution in documentation
 - **Current Branch**: For work session and commit tracking
 - **Repository Root**: For file path resolution
+
+### Step 6: Load User Settings
+
+Read user settings from `.github/instructions/user-settings.instructions.md` to load user preferences:
+- Work Mode: [Autonomous/Orchestrated/Supervised]
+- Agent Skills: [Enabled/Disabled]
+- Custom Subagents: [Enabled/Disabled]
+
+### Step 7: Inform and Offer Mode Options
+
+Proactively inform the user of the current work mode and offer to continue or learn more:
+```
+Current work mode: [Autonomous/Orchestrated/Supervised]
+
+Let me know at any time if you'd like to switch to a different mode, or learn more about the available work modes.
+```
+
+### Step 8: VS Code Experimental Features Notice
+
+After communicating about work modes, check the User Settings from memory:
+
+- **If both "Agent Skills" and "Custom Subagents" are Enabled**: Skip this section entirely
+- **If both are Disabled**: Inform the user about required experimental settings:
+  ```
+  Note: ARC uses agent skills for on-demand extensible capabilities and delegates work to specialized custom agents in the background. Both features rely on experimental settings in VS Code that must be enabled for them to work properly. If these settings are not enabled, your experience with ARC may be degraded:
+
+  - Chat: Use Agent Skills
+  - Chat > Custom Agent in Subagent
+  
+  Would you like instructions on how to enable them, or have they already been enabled?
+  ```
+- **If only "Agent Skills" is Disabled**: 
+  ```
+  Note: ARC uses agent skills for on-demand extensible capabilities. This feature relies on an experimental setting in VS Code that must be enabled. If the setting "Chat: Use Agent Skills" is not enabled, your experience with ARC may be degraded.
+  
+  Would you like instructions on how to enable it, or has it already been enabled?
+  ```
+- **If only "Custom Subagents" is Disabled**: 
+  ```
+  Note: ARC delegates work to specialized agents in the background. This feature relies on an experimental setting in VS Code that must be enabled. If the setting "Chat > Custom Agent in Subagent" is not enabled, your experience with ARC may be degraded.
+  
+  Would you like instructions on how to enable it, or has it already been enabled?
+  ```
+
+**DO NOT proceed past this point until the user has responded.**
+
+**If user requests instructions**, provide the appropriate subset:
+- **For both settings**:
+  ```
+  To enable the required experimental features:
+  1. Open User Settings: `Cmd+,` (macOS) or `Ctrl+,` (Windows/Linux)
+  2. In the search box, type: "chat.useAgentSkills"
+  3. Look for "Chat: Use Agent Skills (Experimental)" and check the box to enable it
+  4. In the search box, type: "chat.customAgentInSubagent"
+  5. Look for "Chat: Custom Agent In Subagent" and check the box to enable it
+  ```
+- **For Agent Skills only**:
+  ```
+  To enable Agent Skills:
+  1. Open User Settings: `Cmd+,` (macOS) or `Ctrl+,` (Windows/Linux)
+  2. In the search box, type: "chat.useAgentSkills"
+  3. Look for "Chat: Use Agent Skills (Experimental)" and check the box to enable it
+  ```
+- **For Custom Subagents only**:
+  ```
+  To enable Custom Subagents:
+  1. Open User Settings: `Cmd+,` (macOS) or `Ctrl+,` (Windows/Linux)
+  2. In the search box, type: "chat.customAgentInSubagent"
+  3. Look for "Chat: Custom Agent In Subagent" and check the box to enable it
+  ```
+
+### Step 9: Explain Modes (if requested)
+
+If the user wants to learn more about work modes, provide concise descriptions:
+- **Autonomous**: Coordinator handles everything until commit time
+- **Orchestrated**: User approves each step manually
+- **Supervised**: Coordinator handles planning, user approves code changes
+
+### Step 10: Update User Settings
+
+If the user changes mode, update `.github/instructions/user-settings.instructions.md`.
+
+### Step 11: Assess Work
+
+Determine whether this is a continuation of previous work or a fresh start.
+
+### Step 12: Review Context
+
+Help the user understand the project state by referencing ROADMAP and recent CHANGELOG entries.
 
 ## Integration with Other Skills
 
@@ -155,6 +317,45 @@ The initialization script outputs JSON:
   "git_email": "jane@example.com",
   "current_branch": "feature/new-feature",
   "repo_root": "/Users/jane/git/project",
+  "branch_sync": {
+    "current_branch_status": "synced",
+    "out_of_sync_branches": [],
+    "fetch_failed": false,
+    "fetch_error": null
+  },
+  "warnings": []
+}
+```
+
+Or with branch sync issues:
+
+```json
+{
+  "git_username": "Jane Developer",
+  "git_email": "jane@example.com",
+  "current_branch": "feature/new-feature",
+  "repo_root": "/Users/jane/git/project",
+  "branch_sync": {
+    "current_branch_status": "behind",
+    "out_of_sync_branches": [
+      {
+        "branch": "feature/new-feature",
+        "status": "behind",
+        "ahead": 0,
+        "behind": 3,
+        "tracking": "origin/feature/new-feature"
+      },
+      {
+        "branch": "main",
+        "status": "ahead",
+        "ahead": 2,
+        "behind": 0,
+        "tracking": "origin/main"
+      }
+    ],
+    "fetch_failed": false,
+    "fetch_error": null
+  },
   "warnings": []
 }
 ```
@@ -167,6 +368,7 @@ Or with warnings if configuration is missing:
   "git_email": "",
   "current_branch": "main",
   "repo_root": "/Users/jane/git/project",
+  "branch_sync": null,
   "warnings": ["Git user.name not configured"]
 }
 ```

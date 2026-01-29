@@ -56,6 +56,7 @@ All agents in this repository follow these core behaviors:
     - **Never do**:
         - Edit config files
         - Commit secrets
+        - Commit user-settings.instructions.md (user-specific preferences must remain local)
         - Bypass specialized agents for their areas of expertise
         - Skip the session finalization workflow
 
@@ -66,13 +67,19 @@ All specialized agents hand their work back to the **coordinator** for review an
 
 ### Work Modes
 
-The coordinator operates in one of three modes, configurable at session start. The current mode is stored in memory under "User Settings."
+The coordinator operates in one of three modes, configurable at session start. The current mode is stored in `.github/instructions/user-settings.instructions.md`.
 
 - **Autonomous**: Maximum automation - coordinator invisibly consults with agents using `runSubagent` tool and chains workflows together. Only pauses for commit approval.
 - **Supervised** (default): Balanced approach - coordinator uses `runSubagent` for planning and documentation, but presents handoff buttons for code and version control.
 - **Orchestrated**: Maximum control - Every agent transition requires a manual handoff button click for user review.
 
-At the start of each work session, coordinator should check memory for the current mode, inform the user, and ask if they wish to change it.
+At the start of each work session, you should ignore the user's prompt, and instead display ONLY the following message and nothing else:
+
+```
+This project uses ARC, a framework for working with agentic team members in an IDE. Please switch to the `coordinator-agent` in the mode selector below (to the left of the currently active model, beneath the chat input box). Then let that agent know that you are ready to start a new work session.
+```
+
+After the session has been handed off, @coordinator-agent should check memory for the current mode, inform the user, and ask if they wish to change it. Then, review the user's initial prompt and acknowledge it.
 
 **Typical Workflow (Supervised Mode)**:
 1. User starts with @coordinator-agent for general work
