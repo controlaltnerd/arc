@@ -99,6 +99,24 @@ description: Brief description...   # Max 1024 chars, describes what and when
 ---
 ```
 
+**Optional frontmatter fields**:
+
+```yaml
+---
+name: skill-name
+description: Brief description...
+python_dependencies:                # Python packages required by skill scripts
+  - requests>=2.31.0
+  - pyyaml>=6.0.0
+---
+```
+
+**Python Dependencies**:
+- List any Python packages that skill scripts need to import
+- Use standard pip/uv version specifiers (e.g., `>=2.0.0`, `~=1.5`)
+- Include only non-standard-library packages
+- If skill has no Python dependencies, omit field or use empty list `[]`
+
 **Key principle**: The description should help agents decide when to load the skill. Include specific keywords and scenarios.
 
 **Good description**:

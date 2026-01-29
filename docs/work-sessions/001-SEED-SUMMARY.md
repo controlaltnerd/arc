@@ -61,7 +61,7 @@ cp -r ARC/src/.github/instructions/* .github/instructions/
 - Populated YAML frontmatter where required
 
 **SEED.md Instructions**:
-- Copied all files from src/ (formerly BOILERPLATE) to project root
+- Copied all files from src/ to project root
 - Filled out templates with appropriate content based on project knowledge
 - Configured default work mode as Supervised
 - Working on correct branch (docs/init-agentic-team)
