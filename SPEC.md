@@ -223,7 +223,7 @@ Memory file should not contain:
 
 ### Documentation
 
-See AGENTS.md for documentation references and wiki locations.
+See AGENTS.md for documentation references.
 
 ### Contact
 

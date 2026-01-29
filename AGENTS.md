@@ -13,7 +13,6 @@ This repository contains the **ARC (Agentic Runtime Conventions)** framework - a
 - **copilot-instructions.md**: Core agent behaviors, orchestration patterns, and session workflows
 - **.agentignore**: List of files/directories agents should avoid reading to maintain focus and prevent context overflow
 - **ARC/src/**: Template files for installation into user projects
-- **arc-wiki/**: Comprehensive wiki documentation covering all aspects of ARC
 
 ## Conventions and Expectations
 
@@ -142,9 +141,3 @@ Review these files for more information:
 - **SPEC.md** - Complete technical specification of the ARC framework
 - **README.md** - User-facing installation and usage guide
 - **.github/copilot-instructions.md** - Core agent behaviors and orchestration
-- **arc-wiki/** - Comprehensive documentation wiki
-  - How-ARC-Works.md
-  - Core-Features.md
-  - Advanced-Features.md
-  - Work-Modes.md
-  - FAQ.md

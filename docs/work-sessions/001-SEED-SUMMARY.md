@@ -2,7 +2,7 @@
 
 **Date**: 2026.01.28
 **Branch**: docs/init-agentic-team
-**Commit**: [pending]
+**Commit**: 69c2b46
 **Status**: Complete
 
 ## Objective
@@ -21,7 +21,7 @@ Initialize the ARC (Agentic Runtime Conventions) framework into its own reposito
 ## Technical Details
 
 **Source**: Templates located in ARC/src/ directory
-**Customization Method**: Reviewed existing project documentation (README.md, SEED.md, arc-wiki files) to populate template placeholders
+**Customization Method**: Reviewed existing project documentation to populate template placeholders
 **Work Mode**: Configured default work mode as "Supervised" in memory file
 **Branch Strategy**: Used docs/init-agentic-team branch per SEED.md instructions
 **File Count**: 65 new files created including agents, skills, prompts, instructions, and documentation
