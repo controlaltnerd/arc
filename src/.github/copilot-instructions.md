@@ -6,9 +6,7 @@ You can learn about this repository and the project it supports by reading AGENT
 
 ## Skills
 
-Skills are portable, task-specific capabilities located in `/.github/skills/`. Unlike instructions (always applied) or agents (persona-based), skills provide specialized workflows that can include scripts, examples, and other resources.
-
-Skills follow the [Agent Skills open standard](https://agentskills.io/) and are automatically activated based on context. Each skill directory contains a `SKILL.md` file defining the skill's behavior, plus optional supporting resources.
+Skills are task-specific capabilities located in `/.github/skills/`. Skills provide workflows that can include scripts, examples, and other resources.
 
 To create a new skill, use the `create-skill` skill.
 
@@ -18,32 +16,27 @@ You have persistent memory located at `.github/instructions/memory.instructions.
 
 Each header in the file serves as a specific category:
 
-- **Project Brief**: foundational knowledge of the project, defines core requirements and goals, maintains focus on project scope
-- **Product Context**: why this project exists, problems it solves, how it should work, user experience goals
-- **System Patterns**: system architecture, key technical decisions, design patterns in use, component relationships
-- **Tech Context**: technologies used, development setup, technical constraints, dependencies
-- **Progress**: what works, what's left to build, current status, known issues
+- **Product Context**: project details and goals
+- **System Patterns**: architecture, technical decisions, design patterns
+- **Tech Context**: technologies used, development setup, constraints, dependencies
+- **Test Strategy**: [FILL IN]
 
-Stop reading here and check your memory file. If it does not yet exist or is empty, use the `memory` skill to create your memory file.
-
-Populate the Project Brief section based on any SPEC.md files if they exist in this repository.
+Stop reading here and check your memory file. If it does not yet exist or is empty, engage @librarian-agent to create it.
 
 ## Agent Support Files and Directories
 
 - **ROADMAP.md**: tracks upcoming work and suggested future items
-- **CHANGELOG.md**: summarizes individual work sessions, tracking significant changes
-- **TESTS.md**: central registry of all test specifications and their current status
-- **docs/**: contains folders for architectural decision records (ADRs), work session summaries, and test specifications
+- **CHANGELOG.md**: tracks significant changes
+- **TESTS.md**: central registry for test specifications
+- **docs/**: folders for documentation
 
-## Universal Behaviors
+## Required Behavior
 
-All agents in this repository follow these core behaviors:
-
-- **.agentignore**: Check this file in the project root before reading any other file. In order to keep you focused only on what is necessary, and to avoid overflow of your context window, do not read any file that is listed in .agentignore unless you are specifically instructed to do so.
-- **Reading**: You may read the entire file structure in order to properly orient yourself to the repository's contents, but avoid reading any file unless it is necessary to the present task, to avoid context window overflow.
-- **Chat Output**: Keep chat messages minimal, focused on letting the user know what you're currently doing without getting into details. Save those for work session documentation.
-- **Token Conservation**: Before responding, consider whether the user's intent is for you to act, respond, or simply absorb information. Phrases like "review this," "look at this," or "read this" often mean ingest silently and confirm briefly. Phrases like "analyze this," "explain this," or "what do you think" require substantive responses. If the meaning seems unclear, act as if you were asked to stay silent, update the user when finished, and ask whether they want to hear your analysis or review, discuss further, etc. Default to minimal conversation over verbosity.
-- **Debugging**: When major debugging occurs, the agent involved should document any lessons learned in the work session summary.
+- ALWAYS READ `.agentignore` FIRST. Do not read any file listed in .agentignore without explicit instruction.
+- Do not read any file unless necessary for the current task.
+- Keep chat messages minimal. Communicate current effort without getting into details.
+- User phrases like "review this," "look at this," or "read this" usually mean ingest silently and confirm briefly. Phrases like "analyze this," "explain this," or "what do you think" require responses. If the meaning is unclear, act in silence, update the user when finished, then ask if they want to hear your analysis or review, discuss further, etc. Default to minimal conversation over verbosity.
+- Document any lessons learned in the work session summary, if they are not already part of documentation.
 - **Boundaries**:
     - **Always do**:
         - Write new files according to the user's instructions
@@ -57,73 +50,32 @@ All agents in this repository follow these core behaviors:
         - Edit config files
         - Commit secrets
         - Commit user-settings.instructions.md (user-specific preferences must remain local)
-        - Bypass specialized agents for their areas of expertise
+        - Bypass other agents for their areas of expertise
         - Skip the session finalization workflow
 
 ## Agent Orchestration
 
 **Central Coordinator Pattern:**
-All specialized agents hand their work back to the **coordinator** for review and next-step coordination.
+All agents hand their work back to the **coordinator** for review and next-step coordination.
 
 ### Work Modes
 
 The coordinator operates in one of three modes, configurable at session start. The current mode is stored in `.github/instructions/user-settings.instructions.md`.
 
-- **Autonomous**: Maximum automation - coordinator invisibly consults with agents using `runSubagent` tool and chains workflows together. Only pauses for commit approval.
-- **Supervised** (default): Balanced approach - coordinator uses `runSubagent` for planning and documentation, but presents handoff buttons for code and version control.
-- **Orchestrated**: Maximum control - Every agent transition requires a manual handoff button click for user review.
+- **Autonomous**: Maximum automation - consult with agents using `runSubagent` tool and chains workflows together. Only pause for commit approval.
+- **Supervised** (default): Balanced approach - use `runSubagent` automatically for low-risk activities, but wait for user approval for high-impact activities.
+- **Orchestrated**: Maximum control - Every agent and task transition requires user approval.
 
-At the start of each work session, you should ignore the user's prompt, and instead display ONLY the following message and nothing else:
+## Session Start
+
+At the start of each new chat session, ignore the user's prompt, and instead display ONLY the following message and nothing else:
 
 ```
 This project uses ARC, a framework for working with agentic team members in an IDE. Please switch to the `coordinator-agent` in the mode selector below (to the left of the currently active model, beneath the chat input box). Then let that agent know that you are ready to start a new work session.
 ```
 
-After the session has been handed off, @coordinator-agent should check memory for the current mode, inform the user, and ask if they wish to change it. Then, review the user's initial prompt and acknowledge it.
+After the session has been handed off, @coordinator-agent should check memory for the current mode, inform the user, and tell them they can change the work mode at any time by letting the agent know. Then, review the user's initial prompt and acknowledge it.
 
-**Typical Workflow (Supervised Mode)**:
-1. User starts with @coordinator-agent for general work
-2. @coordinator-agent invisibly consults @architect-agent for planning via `runSubagent`
-3. @coordinator-agent presents plan and offers "Write Code" handoff button
-4. User clicks button → @coder-agent implements
-5. @coder-agent hands back to @coordinator-agent
-6. @coordinator-agent offers "Commit Changes" handoff button
-7. User clicks button → @maintainer-agent commits
-8. @maintainer-agent hands back to @coordinator-agent
-9. @coordinator-agent invisibly asks @librarian-agent to document via `runSubagent`
-
-**Explicit Session End Workflow:**
-
-When the user signals session end (see Session Termination below for valid signals), @coordinator-agent MUST:
-
-1. **Stop accepting new work** - Acknowledge session end, no new tasks
-2. **Code commit** - Handoff to @maintainer-agent who automatically commits any uncommitted code/feature changes
-3. **@maintainer-agent returns to @coordinator-agent** - Code commit created (Commit 1)
-4. **Compile session facts** - @coordinator-agent gathers:
-   - Files created/modified (from git)
-   - Objective achieved (from session start)
-   - Key technical decisions made
-   - Verification results
-5. **Handoff to @librarian-agent** - @coordinator-agent uses `runSubagent` or handoff button (based on work mode)
-6. **@librarian-agent drafts session summary** - Using the work-session skill:
-   - Populates all technical sections (files, commits, technical details)
-   - The "Commit" field refers to the CODE commit from step 3, not the documentation commit
-   - Leaves strategic sections for user review (Objective refinement, Next Steps, Benefits)
-   - Presents draft to user for approval
-7. **User approves or requests edits** - Iterate until approved
-8. **@librarian-agent finalizes documentation**:
-   - Writes approved summary to `docs/work-sessions/work-session-YYYY.MM.DD-descriptor.md`
-   - Updates CHANGELOG.md with session entry
-   - Updates memory.instructions.md with key learnings
-9. **@librarian-agent returns to @coordinator-agent** - Documentation files ready
-10. **Documentation commit** - Handoff to @maintainer-agent who automatically commits documentation files
-11. **@maintainer-agent presents both commits for push approval**:
-    - Shows Commit 1 (code work) details
-    - Shows Commit 2 (documentation) details
-    - Requests user approval to push both commits to remote
-12. **User approves push** - @maintainer-agent pushes both commits to remote
-13. **@maintainer-agent returns to @coordinator-agent** - Push complete
-14. **@coordinator-agent confirms to user** - "Session complete. Documentation saved and all changes pushed to remote."
 
 ## Session Termination
 
@@ -136,12 +88,22 @@ If the user tells you to commit your work, ask whether they are done with the cu
 
 If the user's phrasing seems ambiguous, do NOT automatically trigger session end. Instead, ask for clarification on whether they want the work session to end.
 
-If the user seems to indicate that they want to continue working without your assistance, ask if they would like to commit work and generate session documentation. If they agree, execute the end session workflow as usual.
+**Explicit Session End Workflow:**
+
+When the user signals session end (see Session Termination below for valid signals), these steps must be followed:
+
+1. Acknowledge session end and engage @maintainer-agent to commit all new work (code commit)
+2. Gather facts:
+   - Files created/modified (from git)
+   - Objective achieved (from session start)
+   - Key technical decisions made
+   - Verification results
+3. Engage @librarian agent to draft session summary
+4. Present draft to user for approval (if changed are requested, iterate until approved)
+5. Engage @librarian-agent to finalize documentation
+10. Engage @maintainer-agent to commit documentation
+11. Present commits to user for approval
+12. Engage @maintainer-agent to push commits to remote
+14. Confirm to the user: "Session complete. Documentation saved and all changes pushed to remote."
 
 **Critical**: Only the user can signal session end. You must not assume or auto-end sessions.
-
-## Getting Started
-
-For general work coordination and to begin a work session, start with **@coordinator-agent**. @coordinator-agent will direct your work to specialized agents as needed and manage the overall workflow.
-
-Agent files are located in `/.github/agents/` and describe each agent's purpose, expertise, and areas of responsibility.

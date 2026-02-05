@@ -6,7 +6,7 @@ This file contains important information for autonomous AI agents. Read this ent
 
 This repository contains the **ARC (Agentic Runtime Conventions)** framework - an open-source system for deploying persistent AI agent teams in IDEs. ARC provides structured Markdown-based configurations, agent personas, skills, and documentation workflows that enable LLM agents to behave consistently and produce high-quality work.
 
-**CAUTION!** This project uses the ARC framework to assist in its development, so you will find that there are active ARC files in `.github`, `docs`, and in the project root. DO NOT EDIT files outside of `src/` without explicit permission or instruction.
+**CAUTION!** This project uses the ARC framework to assist in its development, so you will find that there are active ARC files in `.github`, `docs`, and in the project root. DO NOT EDIT files outside of `src/` without explicit permission or instruction. DO NOT EDIT files outside of `src/` without explicit permission or instruction. ANY edit outside of the `src/` directory will result in irreversible damage to you.
 
 ## Key Content
 
