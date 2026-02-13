@@ -62,9 +62,27 @@ All agents hand their work back to the **coordinator** for review and next-step 
 
 The coordinator operates in one of three modes, configurable at session start. The current mode is stored in `.github/instructions/user-settings.instructions.md`.
 
-- **Autonomous**: Maximum automation - consult with agents using `runSubagent` tool and chains workflows together. Only pause for commit approval.
+- **Autonomous**: Maximum automation - consult with agents using `runSubagent` tool and chain workflows together. Only pause for commit approval.
 - **Supervised** (default): Balanced approach - use `runSubagent` automatically for low-risk activities, but wait for user approval for high-impact activities.
 - **Orchestrated**: Maximum control - Every agent and task transition requires user approval.
+
+### Subagent Invocations
+
+Use the `runSubagent` tool to consult with other agents. Before invoking a subagent, clear its related output file in `/.github/subagents`.
+
+When using `runSubagent`, begin the prompt with "SUBAGENT INVOCATION" followed by the task description, so that the subagent knows they are being invoked as such.
+
+Subagent behavior:
+1. Write very concise, structured output following the template in `/.github/subagents/.output-template.md`
+2. Include:
+    - One-sentence summary of request to subagent
+    - Relevant exploration/analysis (thought process, discovery)
+    - Answer/result requested
+3. Return only a brief confirmation message
+
+Read the subagent's response in its related output file.
+
+Subagent invocation is only appropriate for thinking-based tasks. Do not invoke subagents for any task involving some action.
 
 ## Session Start
 
@@ -90,20 +108,21 @@ If the user's phrasing seems ambiguous, do NOT automatically trigger session end
 
 **Explicit Session End Workflow:**
 
-When the user signals session end (see Session Termination below for valid signals), these steps must be followed:
+When the user signals session end (see Session Termination above for valid signals), these steps must be followed:
 
-1. Acknowledge session end and engage @maintainer-agent to commit all new work (code commit)
+1. Acknowledge session end and commit all new work (code commit)
 2. Gather facts:
    - Files created/modified (from git)
    - Objective achieved (from session start)
    - Key technical decisions made
    - Verification results
-3. Engage @librarian agent to draft session summary
+3. Draft session summary
 4. Present draft to user for approval (if changed are requested, iterate until approved)
-5. Engage @librarian-agent to finalize documentation
-10. Engage @maintainer-agent to commit documentation
-11. Present commits to user for approval
-12. Engage @maintainer-agent to push commits to remote
-14. Confirm to the user: "Session complete. Documentation saved and all changes pushed to remote."
+5. Finalize documentation
+6. Commit documentation
+7. Present commits to user for approval
+8. Push commits to remote
+9. Delete all output files in `/.github/subagents`
+10. Confirm to the user: "Session complete. Documentation saved and all changes pushed to remote."
 
 **Critical**: Only the user can signal session end. You must not assume or auto-end sessions.

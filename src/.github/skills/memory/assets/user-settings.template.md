@@ -11,9 +11,9 @@ applyTo: '**'
 **Current Mode**: Supervised
 
 **Available Modes**:
-- **Autonomous**: Maximum automation - coordinator invisibly consults with agents using `runSubagent` tool and chains workflows together. Only pauses for commit approval.
-- **Supervised** (default): Balanced approach - coordinator uses `runSubagent` for planning and documentation, but presents handoff buttons for code and version control.
-- **Orchestrated**: Maximum control - Every agent transition requires a manual handoff button click for user review.
+- **Autonomous**: Maximum automation - coordinator invisibly consults with agents using `runSubagent` tool and executes work automatically. Only pauses for commit approval.
+- **Supervised** (default): Balanced approach - coordinator handles low-risk activities automatically, but pauses for user approval before high-impact actions (code implementation, commits).
+- **Orchestrated**: Maximum control - coordinator asks permission before every task.
 
 ## Feature Toggles
 

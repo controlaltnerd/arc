@@ -9,12 +9,11 @@ This document tracks planned work for the repository.
 ## Priority
 
 - P1: Streamline core files (copilot-instructions.md, AGENTS.md)
-- P2: Eliminate subagent workflow
-- P3: Streamline agent definitions
-- P4: Streamline instructions and prompts
-- P5: Streamline agent skills
-- P6: Document ROADMAP item format and best practices for future additions
-- P7: Add instructions to align contents of TODO.md and the todo list tool
+- P2: Streamline agent definitions
+- P3: Streamline instructions and prompts
+- P4: Streamline agent skills
+- P5: Document ROADMAP item format and best practices for future additions
+- P6: Add instructions to align contents of TODO.md and the todo list tool
 
 ## Nice-to-Have
 
