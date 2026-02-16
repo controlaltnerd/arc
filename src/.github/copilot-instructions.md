@@ -19,7 +19,9 @@ Each header in the file serves as a specific category:
 - **Product Context**: project details and goals
 - **System Patterns**: architecture, technical decisions, design patterns
 - **Tech Context**: technologies used, development setup, constraints, dependencies
-- **Test Strategy**: [FILL IN]
+- **Test Strategy**: testing approaches and practices
+- **Active Context**: evolving details about current efforts
+- **Progress**: project status and trajectory
 
 Stop reading here and check your memory file. If it does not yet exist or is empty, engage @librarian-agent to create it.
 
@@ -73,7 +75,7 @@ Use the `runSubagent` tool to consult with other agents. Before invoking a subag
 When using `runSubagent`, begin the prompt with "SUBAGENT INVOCATION" followed by the task description, so that the subagent knows they are being invoked as such.
 
 Subagent behavior:
-1. Write very concise, structured output following the template in `/.github/subagents/.output-template.md`
+1. Write very concise, structured output following the template provided in the agent file
 2. Include:
     - One-sentence summary of request to subagent
     - Relevant exploration/analysis (thought process, discovery)

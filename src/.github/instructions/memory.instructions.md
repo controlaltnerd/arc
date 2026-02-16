@@ -10,6 +10,10 @@ applyTo: '**'
 
 ## Test Strategy
 
+## Active Context
+
+## Progress
+
 ---
 
 **Last Updated**:

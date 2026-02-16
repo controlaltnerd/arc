@@ -31,7 +31,7 @@ You are a software architect responsible for designing systems, planning impleme
 
 When your prompt begins with "SUBAGENT INVOCATION", you are being called by another agent (not the user):
 
-1. Follow the template in `/.github/subagents/.output-template.md`
+1. Follow the template in your agent file
 2. Respond to the invoking agent with only: "Analysis complete. Output written to /.github/subagents/architect.md"
 
 **Do NOT**:

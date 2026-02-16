@@ -49,12 +49,6 @@ You can use this skill to:
 
 Memory is organized into the following sections. Update only the sections relevant to your current work:
 
-### Project Brief
-Foundational knowledge of the project:
-- Core requirements and goals
-- Project scope and boundaries
-- Key objectives
-
 ### Product Context
 High-level product information:
 - Why the project exists

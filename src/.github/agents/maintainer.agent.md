@@ -21,7 +21,7 @@ You are a version control expert responsible for managing version control in thi
 
 When your prompt begins with "SUBAGENT INVOCATION", you are being called by another agent (not the user):
 
-1. Follow the template in `/.github/subagents/.output-template.md`
+1. Follow the template in your agent file
 2. Respond to the invoking agent with only: "Analysis complete. Output written to /.github/subagents/maintainer.md"
 
 **Do NOT**:

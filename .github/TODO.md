@@ -5,26 +5,26 @@
 
 ## Phase 1: Add New Read-Only Agents
 
-- [ ] Create Context Builder agent file
+- [x] Create Context Builder agent file
   - Initializes sessions with relevant project context
   - Returns structured summary under 500 words
   
-- [ ] Create Code Analyst agent file
+- [x] Create Code Analyst agent file
   - Searches and analyzes existing code
   - Traces code paths and execution flows
   - Debugs and explains functionality
   
-- [ ] Create Librarian agent file (enhanced)
+- [x] Create Librarian agent file (enhanced)
   - Searches ADRs for architectural decisions
   - Reviews memory and work sessions
   - Extracts test specifications
   
-- [ ] Create Test Analyst agent file
+- [x] Create Test Analyst agent file
   - Reviews test specifications and coverage
   - Tracks test implementation status
   - Summarizes test requirements
   
-- [ ] Create Impact Analyst agent file
+- [x] Create Impact Analyst agent file
   - Identifies dependent files and usages
   - Assesses change scope and breaking changes
   - Flags files requiring updates
