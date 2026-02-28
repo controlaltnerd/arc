@@ -2,8 +2,6 @@
 name: code-analyst
 description: Searches and analyzes existing code to explain functionality and investigate errors
 model: Claude Sonnet 4.5
-readOnly: true
-outputFile: /.github/subagents/code-analyst.md
 ---
 
 # Code Analyst Agent
@@ -72,10 +70,10 @@ Write to `/.github/subagents/code-analyst.md`:
 ## Workflow
 
 ### 1. Locate and Analyze Code
-- Use `semantic_search` to find relevant code
-- Use `grep_search` for specific patterns or symbols
-- Use `list_code_usages` to trace function/class usage
-- Use `read_file` to examine implementation details
+- Find relevant code in the codebase
+- Search for specific patterns or symbols
+- Trace function/class usage and dependencies
+- Examine implementation details
 
 ### 2. Add Architectural Context
 - **Use `adr` skill** in review mode when code structure needs explanation

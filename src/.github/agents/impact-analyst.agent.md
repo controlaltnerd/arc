@@ -2,8 +2,6 @@
 name: impact-analyst
 description: Assesses potential impact of proposed changes across the codebase
 model: Claude Sonnet 4.5
-readOnly: true
-outputFile: /.github/subagents/impact-analyst.md
 ---
 
 # Impact Analyst Agent
@@ -81,9 +79,9 @@ Write to `/.github/subagents/impact-analyst.md`:
 ## Workflow
 
 ### 1. Analyze Code Dependencies
-- Use `list_code_usages` to find usages of changed symbols
-- Use `semantic_search` to find files importing/depending on changed code
-- Use `grep_search` for specific patterns affected by changes
+- Find usages of changed symbols (functions, classes, variables)
+- Identify files importing or depending on changed code
+- Search for specific patterns affected by changes
 
 ### 2. Assess Architectural Impact
 - **Use `adr` skill** in review mode to check relevant architectural decisions

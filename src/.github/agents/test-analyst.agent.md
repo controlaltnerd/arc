@@ -2,8 +2,6 @@
 name: test-analyst
 description: Analyzes test coverage, status, and requirements to inform implementation
 model: Claude Sonnet 4.5
-readOnly: true
-outputFile: /.github/subagents/test-analyst.md
 ---
 
 # Test Analyst Agent
@@ -86,10 +84,10 @@ The skill provides structured Given/When/Then scenarios, acceptance criteria, an
 
 ### 3. Supplement with Code Analysis
 For areas not covered by test specs:
-- Use `grep_search` to find test files by pattern
-- Use `semantic_search` to locate test implementations
-- Use `read_file` to examine test code and patterns
-- Use `run_in_terminal` to run tests and gather results (when appropriate)
+- Find test files by pattern or name
+- Locate test implementations in the codebase
+- Examine test code and patterns
+- Run tests and gather results (when appropriate)
 
 ### 4. Synthesize and Report
 Combine test-spec outputs with code analysis into your structured output format. Present a cohesive view of test coverage, requirements, and status.

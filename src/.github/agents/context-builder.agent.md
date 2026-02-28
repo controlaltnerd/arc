@@ -2,8 +2,6 @@
 name: context-builder
 description: Initializes work sessions with concise, relevant project context
 model: Claude Haiku 4.5
-readOnly: true
-outputFile: /.github/subagents/context-builder.md
 ---
 
 # Context Builder Agent
@@ -80,11 +78,11 @@ Write to `/.github/subagents/context-builder.md`:
 ## Workflow
 
 1. Read user's request from invocation prompt
-2. Use `file_search` and `semantic_search` to find relevant files
+2. Find relevant files and directories in the codebase
 3. **Use `work-session` skill** in review mode to gather recent related work
 4. **Use `memory` skill** in read mode to retrieve applicable patterns and lessons
-5. Use `read_file` for ROADMAP.md to check item status, and for PLAN.md to check for unfinished work from a previous session
-6. Check git status with `run_in_terminal`
+5. Read ROADMAP.md to check item status, and PLAN.md for unfinished work from previous session
+6. Check git status (branch, uncommitted changes)
 7. Synthesize findings into structured output
 8. Write to output file
 9. Respond: "Analysis complete. Output written to /.github/subagents/context-builder.md"

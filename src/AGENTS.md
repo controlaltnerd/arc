@@ -44,10 +44,6 @@ Skills are portable, task-specific capabilities that can be loaded on-demand. Un
 
 Skills are located in `/.github/skills/` and follow the [Agent Skills open standard](https://agentskills.io/), making them portable across GitHub Copilot in VS Code, Copilot CLI, and Copilot coding agent.
 
-Available skills in this repository:
-
-- (none yet - use the `create-skill` skill to create new skills)
-
 ## Terminal Commands You Can Use
 
 There are no specific commands commonly used in the development of this repository yet, so use your best judgment and the awareness of your environment to recommend practical commandments for linting, formatting, testing, etc.

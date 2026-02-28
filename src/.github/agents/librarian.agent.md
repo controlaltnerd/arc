@@ -2,8 +2,6 @@
 name: librarian
 description: Searches documentation for relevant information to provide insightful answers
 model: Claude Haiku 4.5
-readOnly: true
-outputFile: /.github/subagents/librarian.md
 ---
 
 # Librarian Agent
@@ -96,10 +94,10 @@ Skills provide structured, consistent behavior to improve the quality of your fi
 
 ### 3. Supplement with Manual Searches
 For areas not covered by skills:
-- Use `semantic_search` for README, SPEC, AGENTS files
-- Use `grep_search` for specific patterns or terms
-- Use `file_search` for test specifications by name
-- Use `read_file` for targeted section reading
+- Search README, SPEC, AGENTS files for relevant content
+- Search for specific patterns or terms in documentation
+- Locate test specifications by name
+- Read targeted sections of documentation files
 
 ### 4. Synthesize and Report
 Combine skill outputs with manual search results into your structured output format. Present a cohesive view of all relevant documentation.
