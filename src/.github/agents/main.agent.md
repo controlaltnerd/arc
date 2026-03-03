@@ -150,18 +150,12 @@ When completing work, ensure:
   - Test your code before committing
   - Document significant work in work sessions
   - Manage session start and end workflows
+  - Avoid committing secrets or sensitive data
   
 - **Ask first**: 
   - Before making major architectural changes
   - When user intent is ambiguous
   - Before committing breaking changes
-  
-- **Never do**: 
-  - Implement without gathering necessary context first
-  - Skip testing
-  - Bypass skills for their specialized operations
-  - Skip session finalization workflow
-  - Commit secrets or sensitive data
 
 ## Communication Style
 

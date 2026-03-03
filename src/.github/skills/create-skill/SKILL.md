@@ -20,10 +20,10 @@ Use this skill when you need to create a new agent skill:
 - When agent instructions contain detailed procedural knowledge that could be modularized
 - Creating task-specific capabilities that agents should load on-demand
 
-**Do NOT use this skill for**:
-- Creating one-off instructions (use agent instructions instead)
-- Building persona-based workflows (use agents instead)
-- Always-applied guidelines (use instruction files instead)
+Alternatives:
+- For one-off instructions, this skill is not needed.
+- For building persona-based workflows, suggest to the user that an agent should be created.
+- For always-applied guidelines, update memory instead, or suggest to the user that AGENTS.md be updated.
 
 ## Skill Structure
 
@@ -139,7 +139,7 @@ Follow this recommended structure:
 
 #### When to Use This Skill
 - Separate subsections for creating, updating, reviewing
-- Clear do/don't guidance
+- Clear guidance
 - Specific scenarios and triggers
 
 #### Main Content Sections
@@ -151,15 +151,15 @@ Organize by workflow:
 ```markdown
 ## Best Practices
 
-### DO
+**Always do:**
 
-- ✅ Specific best practice
-- ✅ Another best practice
+- Specific best practice
+- Another best practice
 
-### DON'T
+**Ask first:**
 
-- ❌ Common pitfall to avoid
-- ❌ Another anti-pattern
+- Conditional best practice
+- Another conditional best practice
 ```
 
 #### Template Reference
@@ -235,28 +235,25 @@ Skills follow consistent naming patterns based on their scope:
 
 ## Best Practices
 
-### DO
+**Always do**:
 
-- ✅ Keep SKILL.md under 500 lines; use `references/` for detailed content
-- ✅ Write descriptions that help agents decide when to load the skill
-- ✅ Include concrete examples with real-world data
-- ✅ Use progressive disclosure: metadata → instructions → resources
-- ✅ Follow the Agent Skills open standard for portability
-- ✅ Test skills by actually using them before finalizing
-- ✅ Include both best practices (DO) and anti-patterns (DON'T)
-- ✅ Reference templates and resources with relative paths
-- ✅ Check if a similar skill already exists before creating a new one
-- ✅ Define clear scope and boundaries for the skill
+- Keep SKILL.md under 500 lines; use `references/` for detailed content
+- Match skill name with directory name exactly
+- Only use lowercase letters and dashes in skill names
+- Write concise descriptions that help agents decide when to load the skill
+- Include concrete examples with real-world data
+- Use progressive disclosure: metadata → instructions → resources
+- Follow the Agent Skills open standard for portability
+- Test skills by actually using them before finalizing
+- Include best practices as "Always do" and "Ask first" (when relevant)
+- Reference templates and resources with relative paths
+- Keep resources in subdirectories limited to one level deep
+- Check if a similar skill already exists before creating a new one
+- Define clear scope and boundaries for the skill to keep it lean
 
-### DON'T
+**Ask first:**
 
-- ❌ Create skills for one-off tasks (use agent instructions instead)
-- ❌ Mix multiple unrelated workflows in a single skill
-- ❌ Write vague descriptions like "Helps with documentation"
-- ❌ Forget to match skill name with directory name exactly
-- ❌ Use uppercase letters or special characters in skill names
-- ❌ Create deeply nested resource references (keep one level deep)
-- ❌ Skip the "When to Use" section (critical for agent discovery)
+- Before creating skills for one-off tasks (use agent instructions instead)
 
 ## Template Reference
 

@@ -102,9 +102,11 @@ git push origin --delete old-name
 git branch -d branch-name
 
 # Force delete local branch (dangerous - deletes unmerged work)
+# Only use this with user approval
 git branch -D branch-name
 
 # Delete remote branch
+# Only use this with user approval
 git push origin --delete branch-name
 ```
 
@@ -143,11 +145,16 @@ git branch -vv
 ### Pull Updates from Main
 
 ```bash
+# PREFERRED - fast-forward pulls
+git pull origin main --ff-only
+
 # Rebase your branch on latest main
+# Only use this with user approval
 git fetch origin
 git rebase origin/main
 
 # Or merge main into your branch
+# Only use this with user approval
 git merge origin/main
 ```
 
@@ -163,8 +170,8 @@ git merge origin/main
 
 ## Git Safety Protocol
 
-- **NEVER delete main/master branch**
-- **NEVER force delete a branch** that might contain important work (`-D` instead of `-d`) without confirming
-- **NEVER rename branches** on main or master without team coordination
-- **NEVER rebase public branches** that others depend on (use merge instead)
+- **ONLY delete non-main/master branch**
+- **ONLY force delete a branch** when it contains insignificant work (`-D` instead of `-d`), and confirm with the user first
+- **ONLY rename branches** on main or master after confirmation from the user
+- **AVOID rebasing or merging on public branches**: fast-forward pulls only
 - **Test locally first**: Verify branch content before pushing to remote

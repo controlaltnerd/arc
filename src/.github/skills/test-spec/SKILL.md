@@ -221,23 +221,22 @@ After creating the test specification:
 
 ## Best Practices
 
-- **Start with happy path**: Cover the primary use case first, then edge cases
-- **One concept per scenario**: Don't combine multiple behaviors in a single Given/When/Then
-- **Realistic test data**: Use concrete examples that reflect real-world usage
-- **Testable outcomes**: Every "Then" should be verifiable by an automated test
-- **Consider maintenance**: Tests should be clear enough that future developers understand intent
-- **Document assumptions**: Note any assumptions about system state or dependencies
-- **Update after implementation**: As tests are implemented, update `test_files`, `coverage`, and `status` fields
+**Always do:**
 
-## Common Pitfalls to Avoid
-
-- ❌ Creating specs for exploratory or unapproved features
-- ❌ Generic scenarios like "User does something invalid"
-- ❌ Missing edge cases (nulls, empty strings, very large values)
-- ❌ Forgetting to link to related project documentation
-- ❌ Not getting user approval before implementation
-- ❌ Writing implementation details instead of behavior expectations
-- ❌ Skipping the `blocking` field when user approval is required
+- Start with the happy path, covering the primary use case first, then edge cases
+- Handle one concept per scenario
+- Use concrete examples that reflect real-world usage
+- Write every "Then" so that it is verifiable by an automated test
+- Write every test clearly so that future developers understand intent
+- Note any assumptions about system state or dependencies
+- Update `test_files`, `coverage`, and `status` fields as tests are implemented
+- Only create specs for approved features
+- Avoid generic scenarios like "User does something invalid"
+- Handle edge cases thoroughly (nulls, empty strings, very large values)
+- Link to related project documentation
+- Get user approval before implementation
+- Write behavior expectations instead of implementation details
+- Use the `blocking` field when user approval is required
 
 ## Template Reference
 

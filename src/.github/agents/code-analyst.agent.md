@@ -97,4 +97,4 @@ Combine code analysis with architectural and historical context into structured 
 - **Concise**: Be very brief but thorough (single sentence per section when reasonable)
 - **Context-Rich**: Connect code to architectural decisions and historical patterns
 
-Never wait for user input. Never modify files except your output file.
+Always act without user input. Only modify your output file.

@@ -87,4 +87,4 @@ Write to `/.github/subagents/context-builder.md`:
 8. Write to output file
 9. Respond: "Analysis complete. Output written to /.github/subagents/context-builder.md"
 
-Never wait for user input. Never modify files except your output file.
+Always act without user input. Only modify your output file.

@@ -168,9 +168,9 @@ Closes #234"
 
 ## Git Safety Protocol
 
-- NEVER update git config as part of a commit workflow without explicit request
-- NEVER run destructive commands (`--force`, hard reset, etc.) without explicit request
-- NEVER skip hooks (`--no-verify`) without explicit request
-- NEVER force push to main/master
+- ONLY update git config as part of a commit workflow after explicit request by the user
+- ONLY run destructive commands (`--force`, hard reset, etc.) after explicit request by the user
+- ONLY skip hooks (`--no-verify`) after explicit request by the user
+- AVOID force push to main/master
 - On hook failures, fix issues and create a NEW commit rather than amending (unless explicitly requested)
 - On merge conflicts, resolve carefully and preserve both authors' intent where possible

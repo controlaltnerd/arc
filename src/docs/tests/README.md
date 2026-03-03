@@ -18,9 +18,9 @@ Example: `authentication.test-spec.md`, `rate-limiting.test-spec.md`
 
 ## Workflow
 
-1. **Planning**: When a feature is planned, @architect-agent creates a test specification
+1. **Planning**: When a feature is planned, @main-agent creates a test specification (consulting @test-analyst for patterns and coverage analysis)
 2. **Review**: User reviews and approves test scenarios before implementation
-3. **Implementation**: @coder-agent uses test spec as guide to write actual tests and code
+3. **Implementation**: @main-agent uses test spec as guide to write actual tests and code
 4. **Maintenance**: Test specs are updated when requirements change or bugs are found
 5. **Tracking**: TESTS.md at project root tracks status of all test specifications
 

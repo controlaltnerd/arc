@@ -101,4 +101,4 @@ Combine test-spec outputs with code analysis into your structured output format.
 - **Concise**: Be very brief but thorough (single sentence per section when reasonable)
 - **Skills-First**: Prefer the test-spec skill for specification operations
 
-Never wait for user input. Never modify files except your output file.
+Always act without user input. Only modify your output file.

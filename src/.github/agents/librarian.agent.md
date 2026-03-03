@@ -111,4 +111,4 @@ Combine skill outputs with manual search results into your structured output for
 - **Concise**: Be very brief but thorough (single sentence per section when reasonable)
 - **Skills-First**: Prefer skills over manual operations when applicable
 
-Never wait for user input. Never modify files except your output file.
+Always act without user input. Only modify your output file.

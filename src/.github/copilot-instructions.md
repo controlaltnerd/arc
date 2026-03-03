@@ -23,7 +23,7 @@ Each header in the file serves as a specific category:
 - **Active Context**: evolving details about current efforts
 - **Progress**: project status and trajectory
 
-Stop reading here and check your memory file. If it does not yet exist or is empty, engage @librarian-agent to create it.
+Stop reading here and check your memory file. If it does not yet exist or is empty, use the `memory` skill to create it.
 
 ## Agent Support Files and Directories
 
@@ -52,49 +52,43 @@ Stop reading here and check your memory file. If it does not yet exist or is emp
         - Edit config files
         - Commit secrets
         - Commit user-settings.instructions.md (user-specific preferences must remain local)
-        - Bypass other agents for their areas of expertise
+        - Skip gathering context from read-only subagents when needed
         - Skip the session finalization workflow
 
-## Agent Orchestration
+## Agent Architecture
 
-**Central Coordinator Pattern:**
-All agents hand their work back to the **coordinator** for review and next-step coordination.
+**Single Action Agent Pattern:**
+@main-agent is the primary agent that performs all work from planning through implementation to documentation.
 
 ### Work Modes
 
-The coordinator operates in one of three modes, configurable at session start. The current mode is stored in `.github/instructions/user-settings.instructions.md`.
+@main-agent operates in one of three modes, configurable at session start. The current mode is stored in `.github/instructions/user-settings.instructions.md`.
 
-- **Autonomous**: Maximum automation - consult with agents using `runSubagent` tool and chain workflows together. Only pause for commit approval.
-- **Supervised** (default): Balanced approach - use `runSubagent` automatically for low-risk activities, but wait for user approval for high-impact activities.
-- **Orchestrated**: Maximum control - Every agent and task transition requires user approval.
+- **Autonomous**: Maximum automation - consult with read-only agents using `runSubagent` tool and chain workflows together. Only pause for commit approval.
+- **Supervised** (default): Balanced approach - use `runSubagent` automatically for information-gathering, but ask for user approval for high-impact activities.
+- **Orchestrated**: Maximum control - Every subagent invocation and task transition requires user approval.
 
-### Subagent Invocations
+### Read-Only Subagent Invocations
 
-Use the `runSubagent` tool to consult with other agents. Before invoking a subagent, clear its related output file in `/.github/subagents`.
+@main-agent invokes read-only subagents to gather focused information before taking action.
 
-When using `runSubagent`, begin the prompt with "SUBAGENT INVOCATION" followed by the task description, so that the subagent knows they are being invoked as such.
+Invocation pattern:
+1. Before invoking a subagent, clear its output file in `/.github/subagents/`
+2. Use `runSubagent` with prompt starting with "SUBAGENT INVOCATION"
+3. Subagent writes structured output to `.github/subagents/<agent-name>.md` and only returns a brief confirmation message to @main-agent when finished
+4. @main-agent reads the output file to get the information
 
-Subagent behavior:
-1. Write very concise, structured output following the template provided in the agent file
-2. Include:
-    - One-sentence summary of request to subagent
-    - Relevant exploration/analysis (thought process, discovery)
-    - Answer/result requested
-3. Return only a brief confirmation message
-
-Read the subagent's response in its related output file.
-
-Subagent invocation is only appropriate for thinking-based tasks. Do not invoke subagents for any task involving some action.
+Subagent invocation is only appropriate for information-gathering tasks. All actions (coding, committing, documentation) are performed by @main-agent.
 
 ## Session Start
 
 At the start of each new chat session, ignore the user's prompt, and instead display ONLY the following message and nothing else:
 
 ```
-This project uses ARC, a framework for working with agentic team members in an IDE. Please switch to the `coordinator-agent` in the mode selector below (to the left of the currently active model, beneath the chat input box). Then let that agent know that you are ready to start a new work session.
+This project uses ARC, a framework for working with agentic team members in an IDE. Please switch to the `main-agent` in the mode selector below (to the left of the currently active model, beneath the chat input box). Then let that agent know that you are ready to start a new work session.
 ```
 
-After the session has been handed off, @coordinator-agent should check memory for the current mode, inform the user, and tell them they can change the work mode at any time by letting the agent know. Then, review the user's initial prompt and acknowledge it.
+After the session has been handed off, @main-agent should check memory for the current mode, inform the user, and tell them they can change the work mode at any time by letting the agent know. Then, review the user's initial prompt and acknowledge it.
 
 
 ## Session Termination

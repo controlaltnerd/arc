@@ -106,8 +106,8 @@ placeholders:
 - Commands/tests run with notable output summaries
 
 ## Memory Updates
-- [ ] Coder: Document key points in memory.instructions.md
-- [ ] Librarian: Review and clean up memory entries as needed
+- [ ] Document key points in memory.instructions.md
+- [ ] Review and clean up memory entries as needed
 
 ---
 

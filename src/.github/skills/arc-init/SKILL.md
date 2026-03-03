@@ -15,7 +15,7 @@ Initialize session context automatically at the start of each conversation. This
 **Automatic invocation:**
 - At the start of every new conversation session
 - Before processing the user's first prompt
-- Invoked by the coordinator agent - DO NOT use without explicit instructions
+- Invoked by @main-agent - DO NOT use without explicit instructions
 
 ## What Gets Initialized
 
@@ -275,9 +275,9 @@ After communicating about work modes, check the User Settings from memory:
 ### Step 9: Explain Modes (if requested)
 
 If the user wants to learn more about work modes, provide concise descriptions:
-- **Autonomous**: Coordinator handles everything until commit time
+- **Autonomous**: @main-agent handles everything until commit time
 - **Orchestrated**: User approves each step manually
-- **Supervised**: Coordinator handles planning, user approves code changes
+- **Supervised**: @main-agent handles planning and information gathering automatically, user approves high-impact operations
 
 ### Step 10: Update User Settings
 
@@ -377,7 +377,7 @@ Or with warnings if configuration is missing:
 
 If the script fails to run:
 1. Continue with session using "User" as fallback
-2. Warn coordinator that initialization failed and provide details
+2. Warn @main-agent that initialization failed and provide details
 3. Do not block user's work
 
 If git commands fail:
@@ -394,23 +394,18 @@ If git commands fail:
 
 ## Best Practices
 
-### DO
+**Always do**:
 
-- ✅ Run initialization automatically at the start of every new conversation
-- ✅ Present session context clearly to the user if any warnings exist
-- ✅ Fall back gracefully to "User" if git username is not configured
-- ✅ Ask the user how they'd like to be referred to if git config is missing
-- ✅ Offer to update git global config if user provides a preferred name
-- ✅ Keep initialized context available throughout the entire session
-- ✅ Use session context in other skills (work-session, adr) for attribution
-- ✅ Continue with the session even if initialization fails
+- Run initialization automatically at the start of every new conversation
+- Present session context clearly to the user if any warnings exist
+- Avoid initialization output to user if successful
+- Inform the user of missing configuration
+- Fall back gracefully to "User" if git username is not configured
+- Keep initialized context available throughout the entire session
+- Use session context in other skills (work-session, adr) for attribution
+- Continue with the session even if initialization fails or git config is missing
 
-### DON'T
+**Ask first**:
 
-- ❌ Block the user's work if initialization fails or git config is missing
-- ❌ Modify git configuration without explicit user permission
-- ❌ Re-run initialization multiple times during the same session
-- ❌ Show initialization output if everything succeeded without warnings
-- ❌ Fail silently - always inform user of missing configuration
-- ❌ Use this skill manually - it's invoked automatically by coordinator
-- ❌ Assume git is configured - always handle missing values gracefully
+- How the user would like to be referred to if git config is missing
+- To update git global config if user provides a preferred name

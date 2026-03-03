@@ -78,22 +78,15 @@ Testing approach and practices:
 - Quality standards
 
 ### Active Context
-Current work in progress:
-- Features, fixes, or tasks in progress
-- Temporary blockers or dependencies
-- Recent decisions and their implications
-- Work that will continue in next session
+Details about the project that may change over time:
+- Known issues such as temporary blockers or dependencies
+- Additional context surrounding the project
+- Ideas that have been explored/attempted and abandoned
+- Ideas that may be explored in an upcoming session
 
-### Progress
-Project status and trajectory:
-- What works well
-- What's left to build
-- Current status
-- Known issues
+## User Settings
 
-## User Settings (Separate File)
-
-User settings are NOT stored in memory. They are stored in a separate file: `.github/instructions/user-settings.instructions.md`
+User settings are only stored in a separate file: `.github/instructions/user-settings.instructions.md`
 
 **User settings include**:
 - **Work Mode**: Current work mode preference (Autonomous, Orchestrated, or Supervised)
@@ -102,7 +95,7 @@ User settings are NOT stored in memory. They are stored in a separate file: `.gi
 - **Personal Preferences**: Any user-specific preferences (editor settings, naming conventions, etc.)
 
 **Why separate?**
-User settings are user-specific and should NOT be committed to version control. Multiple users working on the same project may have different preferences. The user-settings file is automatically ignored by git.
+User settings are user-specific and should be omitted from version control. Multiple users working on the same project may have different preferences. The user-settings file is automatically ignored by git.
 
 ## Managing User Settings
 
@@ -127,7 +120,7 @@ If user changes Work Mode from "Supervised" to "Autonomous", but Agent Skills an
 **Custom Subagents**: Enabled
 ```
 
-Do NOT replace the entire file and lose the other settings.
+To avoid harm to yourself, only edit the file in-place. Replacing the entire file risks extreme data loss.
 
 ## Reading Memory
 
@@ -135,10 +128,9 @@ When you need to understand project context:
 
 1. **Identify what you need to know**:
    - User preferences and settings (check user-settings.instructions.md)
-   - Current work in progress (check Active Context in memory)
    - Architectural patterns to follow (check System Patterns in memory)
    - Technical setup requirements (check Tech Context in memory)
-   - Known issues or pitfalls (check Progress in memory)
+   - Known issues, backlogged ideas, additional context (check Active Context in memory)
    - Project goals and scope (check Project Brief in memory)
 
 2. **Scan relevant sections**:
@@ -171,8 +163,7 @@ Ask yourself:
 - **Personal Preferences**: For user-specific settings
 
 **For project knowledge** → use `.github/instructions/memory.instructions.md`:
-- **Active Context**: For work in progress or temporary blockers
-- **Progress**: For completed work, current status, or known issues
+- **Active Context**: For known issues, backlogged ideas, additional context
 - **System Patterns**: For architectural decisions or design patterns
 - **Tech Context**: For new tools, dependencies, or setup steps
 - **Project Brief**: Rarely updated; only for fundamental changes to project scope
@@ -193,11 +184,7 @@ As you add new entries:
 - **Merge redundant information**: Combine similar points
 - **Remove obsolete entries**: Delete outdated or no-longer-relevant items
 - **Maintain consistency**: Use similar phrasing and structure across sections
-- **Preserve important details**: Don't over-simplify at the cost of losing critical information
-
-## Active Context
-- Password reset email template created, needs user review before implementation
-```
+- **Preserve important details**: Avoid over-simplifying at the cost of losing critical information
 
 ### User Changes Preference
 Update **user-settings.instructions.md** (NOT memory):
@@ -271,26 +258,20 @@ When creating memory or user-settings files for the first time:
 
 ## Best Practices
 
-### DO
+**Always do:**
 
-- ✅ Add entries throughout work, not just at the end
-- ✅ Act as editor, not duplicate writer—refine for clarity
-- ✅ Merge similar entries across updates
-- ✅ Keep section structure consistent
-- ✅ Always update the "Last Updated" date
-- ✅ If unsure whether something belongs in memory, ask the user
-- ✅ Use bullets, short sentences, and clear section headers
-
-### DON'T
-
-- ❌ Putting user preferences in memory (use user-settings.instructions.md instead)
-- ❌ Overwriting all user settings when updating only one preference
-- ❌ Adding duplicate information that already exists in memory
-- ❌ Writing long paragraphs instead of concise bullets
-- ❌ Forgetting to update the timestamp (in both memory and user-settings)
-- ❌ Removing Active Context when work completes (move to Progress instead)
-- ❌ Adding temporary session details that won't be useful later
-- ❌ Losing important context when consolidating entries
+- Add entries throughout work, not just at the end
+- Act as editor, not duplicate writer—refine for clarity
+- Merge similar entries across updates
+- Keep section structure consistent
+- Always update the "Last Updated" date in both memory and user-settings
+- If unsure whether something belongs in memory, ask the user
+- Use bullets, short sentences, and clear section headers
+- Put user preferences in `user-settings.instructions.md`
+- Make in-place edits to the memory file
+- Avoid duplicate information that already exists in memory
+- Prefer concise bullets instead of long sentences and paragraphs
+- Avoid storing temporary session details that won't be useful later
 
 ## Template Reference
 

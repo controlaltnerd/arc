@@ -97,17 +97,17 @@ description: {{SKILL_DESCRIPTION}}
 
 ## Best Practices
 
-### DO
+**Always do:**
 
-- ✅ {{Best practice item}}
-- ✅ {{Best practice item}}
-- ✅ {{Best practice item}}
+- {{Best practice item}}
+- {{Best practice item}}
+- {{Best practice item}}
 
-### DON'T
+**Ask first:**
 
-- ❌ {{Anti-pattern or common mistake}}
-- ❌ {{Anti-pattern or common mistake}}
-- ❌ {{Anti-pattern or common mistake}}
+- {{Conditional best practice item}}
+- {{Conditional best practice item}}
+- {{Conditional best practice item}}
 
 ## Template Reference
 

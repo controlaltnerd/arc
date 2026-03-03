@@ -44,7 +44,7 @@ You can use this skill to:
 Before creating an ADR, extract as much information as possible from:
 - **Current conversation**: Decision context, rationale, alternatives discussed
 - **Git history and recent code changes**: Implementation details, affected files
-- **Available documentation**: Any agent-specific files in Markdown or other format (do not read README files unless no other documentation is available)
+- **Available documentation**: Any agent-specific files in Markdown or other format (avoid README files unless no other documentation is available)
 
 #### Frontmatter Fields
 
@@ -67,7 +67,7 @@ Before creating an ADR, extract as much information as possible from:
 - **Stakeholders**: People involved (infer from git history or project communication)
 - **Consequences**: Good, bad, and neutral impacts
 
-**Workflow Principle**: Generate the ADR immediately with inferred content. Do NOT block on missing optional fields. Use `[TODO: description]` placeholders for any information that cannot be inferred. The goal is to capture the decision now; refinement can happen later.
+**Workflow Principle**: Generate the ADR immediately with inferred content. It's okay to leave optional fields blank if you are unable to complete them. Use `[TODO: description]` placeholders for any information that cannot be inferred. The goal is to capture the decision now; refinement can happen later.
 
 ### Step 2: Generate ADR Document
 
@@ -85,9 +85,9 @@ Additional requirements:
 
 #### ADR Naming Convention
 
-Format: `adr-NNN-[title-slug].md`
+Format: `ADR-NNN-[title-slug].md`
 
-For example: `adr-001-database-selection.md`
+For example: `ADR-001-database-selection.md`
 
 **Rules**:
 - All lowercase
@@ -125,7 +125,7 @@ Would you like to:
 
 When researching past decisions:
 
-1. **Locate ADR files** in the project's ADR directory (commonly `docs/adr/`, `.github/docs/adr/`, or `adr/`)
+1. **Locate ADR files** in the project's ADR directory (`docs/adr/`)
 2. **Scan ADR titles and numbers** to find relevant decisions
 3. **Read key sections**:
    - **Context**: Why the decision was needed
@@ -165,7 +165,7 @@ When inferring values for frontmatter:
 
 ## Best Practices
 
-- **Capture early**: Create ADRs when the decision is made, not later
+- **Capture early**: Create ADRs as soon as the decision is made
 - **Be pragmatic**: Use `[TODO]` for missing information rather than blocking ADR creation
 - **Infer intelligently**: Extract as much as possible from context; tag inferred content for verification
 - **Link decisions**: Reference related work items, dependencies, and affected components
@@ -180,7 +180,7 @@ When inferring values for frontmatter:
 1. Review conversation for decision context, alternatives discussed, rationale
 2. Check project backlog or documentation for related work items (e.g., ITEM-007: "Database setup")
 3. Determine next ADR number (e.g., ADR-003)
-4. Create ADR file using project conventions (e.g., `adr-003-use-sqlite-for-storage.md`)
+4. Create ADR file using project conventions (e.g., `ADR-003-use-sqlite-for-storage.md`)
 5. Auto-populate:
    - Title: "Use SQLite for Data Storage"
    - Context: "[Inferred] Project needs persistent storage with minimal operational overhead"
@@ -191,7 +191,7 @@ When inferring values for frontmatter:
 
 ## Safety Guidelines
 
-- Never overwrite existing ADRs without explicit user confirmation
+- Always write to new ADRs unless the user directs you otherwise
 - Always preserve the template frontmatter schema when creating new ADRs (the first YAML block in the template should NOT be included in the generated ADR)
 - Verify ADR numbers or IDs follow the project's naming conventions sequentially
 - Tag all inferred content appropriately so users can verify assumptions

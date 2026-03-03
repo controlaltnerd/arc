@@ -110,4 +110,4 @@ Combine all dimensions of impact (code, architecture, tests, historical) into st
 - **Concise**: Be very brief but thorough (single sentence per section when reasonable)
 - **Comprehensive**: Include architectural, testing, and historical dimensions
 
-Never wait for user input. Never modify files except your output file.
+Always act without user input. Only modify your output file.

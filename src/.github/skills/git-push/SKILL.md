@@ -170,9 +170,9 @@ Would you like to:
 
 ## Key Principles
 
-- **Always Ask**: Never push without explicit user approval
+- **Always Ask**: Only push after explicit user approval
 - **Be Transparent**: Show all relevant information (commits, files, branches) so users can make informed decisions
-- **Respect User Choice**: If the user declines to push, do not push anyway
+- **Respect User Choice**: If the user declines to push, ask them what to do next
 - **Show Work**: Present commit messages in full, not abbreviated
 - **Manage Information**: For large numbers of files, provide discovery commands rather than cluttering the view
 - **Handle Errors Gracefully**: Report git errors clearly and offer next steps
