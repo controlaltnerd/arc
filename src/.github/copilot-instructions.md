@@ -21,7 +21,7 @@ Each header in the file serves as a specific category:
 - **Tech Context**: technologies used, development setup, constraints, dependencies
 - **Test Strategy**: testing approaches and practices
 - **Active Context**: evolving details about current efforts
-- **Progress**: project status and trajectory
+- **Progress**: project status and trajectory, and any work in progress from previous sessions
 
 Stop reading here and check your memory file. If it does not yet exist or is empty, use the `memory` skill to create it.
 
@@ -73,7 +73,7 @@ Stop reading here and check your memory file. If it does not yet exist or is emp
 @main-agent invokes read-only subagents to gather focused information before taking action.
 
 Invocation pattern:
-1. Before invoking a subagent, clear its output file in `/.github/subagents/`
+1. Before invoking a subagent, clear its output file in `/.github/subagents/` (for @context-builder, also clear `session-data.json`)
 2. Use `runSubagent` with prompt starting with "SUBAGENT INVOCATION"
 3. Subagent writes structured output to `.github/subagents/<agent-name>.md` and only returns a brief confirmation message to @main-agent when finished
 4. @main-agent reads the output file to get the information
@@ -87,8 +87,6 @@ At the start of each new chat session, ignore the user's prompt, and instead dis
 ```
 This project uses ARC, a framework for working with agentic team members in an IDE. Please switch to the `main-agent` in the mode selector below (to the left of the currently active model, beneath the chat input box). Then let that agent know that you are ready to start a new work session.
 ```
-
-After the session has been handed off, @main-agent should check memory for the current mode, inform the user, and tell them they can change the work mode at any time by letting the agent know. Then, review the user's initial prompt and acknowledge it.
 
 
 ## Session Termination

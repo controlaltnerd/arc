@@ -46,30 +46,9 @@ Before creating an ADR, extract as much information as possible from:
 - **Git history and recent code changes**: Implementation details, affected files
 - **Available documentation**: Any agent-specific files in Markdown or other format (avoid README files unless no other documentation is available)
 
-#### Frontmatter Fields
-
-**Required fields** (must be inferrable or explicitly provided):
-- **Decision Title**: Clear, concise name for the decision
-- **Context**: Problem statement—infer from conversation or project documentation
-- **Decision**: The chosen solution—infer from the conversation
-- **Rationale**: Key reasons for the choice—infer from discussion
-
-**Machine-Readable Frontmatter** (helps agents scan ADRs efficiently):
-- **related_item** (optional): Link to triggering issue, epic, or work item ID if available (e.g., "ITEM-003")
-- **blocking** (optional): Set to `true` if this decision must be user-approved before implementation can proceed
-- **affected_components** (optional): List of impacted systems (e.g., ["backend", "database"])
-- **dependencies** (optional): List of prerequisite ADRs (e.g., ["ADR-001"])
-
-**Optional narrative fields** (auto-populate if available, otherwise use `[TODO]` placeholder):
-- **Author**: Retrieved from agent context (or else from `git config user.name`), falls back to "User"
-- **Implementation**: Plan of action, deployment requirements
-- **Alternatives**: Other options considered and why rejected
-- **Stakeholders**: People involved (infer from git history or project communication)
-- **Consequences**: Good, bad, and neutral impacts
-
-**Workflow Principle**: Generate the ADR immediately with inferred content. It's okay to leave optional fields blank if you are unable to complete them. Use `[TODO: description]` placeholders for any information that cannot be inferred. The goal is to capture the decision now; refinement can happen later.
-
 ### Step 2: Generate ADR Document
+
+Generate the ADR immediately with inferred content. It's okay to leave optional fields blank if you are unable to complete them. Use `[TODO: description]` placeholders for any information that cannot be inferred.
 
 Create the ADR using template instantiation. The process will automatically:
 - Determine the next ADR number from existing ADR files in the project
@@ -125,17 +104,11 @@ Would you like to:
 
 When researching past decisions:
 
-1. **Locate ADR files** in the project's ADR directory (`docs/adr/`)
-2. **Scan ADR titles and numbers** to find relevant decisions
-3. **Read key sections**:
-   - **Context**: Why the decision was needed
-   - **Decision**: What was chosen
-   - **Rationale**: Why this choice was made
-   - **Alternatives**: What else was considered and why rejected
-   - **Consequences**: Expected impacts (good, bad, neutral)
-4. **Check status**: Proposed, Accepted, Rejected, or Superseded
-5. **Review metadata**: Related items, affected components, dependencies
-6. **Check date**: Consider if the decision context is still valid
+1. **Scan ADR titles and numbers** to find relevant decisions
+2. **Read key sections**
+3. **Check status**: Proposed, Accepted, Rejected, or Superseded
+4. **Review metadata**: Related items, affected components, dependencies
+5. **Check date**: Consider if the decision context is still valid
 
 ## Updating ADR Status
 

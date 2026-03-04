@@ -49,11 +49,11 @@ Invoke these agents using `runSubagent` when you need specific types of informat
 2. **Provide focused context** - Give the agent just what it needs to investigate
 3. **Agent writes to `.github/subagents/<agent-name>.md`** and confirms completion
 4. **Read the output file** to get the structured summary
-5. **Integrate insights** into your planning and implementation
+5. **Integrate insights** into your workflow
 
 ### Parallel Invocation
 
-You can invoke multiple read-only agents simultaneously when gathering different types of information:
+You can invoke multiple read-only agents simultaneously when gathering different types of information, for example:
 
 ```
 # Session start - gather comprehensive context
@@ -69,13 +69,23 @@ This approach keeps your context focused on summaries rather than loading raw fi
 
 ### Session Start
 
-When a new chat begins (new work session), use the arc-init skill to initialize the session. The skill handles all initialization steps including git configuration, user settings, work mode selection, VS Code experimental features verification, and project context.
+When a new chat begins (new work session), initialize using this two-step process:
+
+1. **Gather session data**: Invoke @context-builder to initialize session context
+
+2. **Initialize session**: Use the `arc-init-session` skill, which reads the session data and handles:
+   - Displaying context to user
+   - Git configuration (if needed)
+   - Work mode selection
+   - VS Code experimental features verification
+
+This separation allows read-only agents to gather data while you handle all user interaction.
 
 ### During Session
 
 - Gather information from read-only agents as needed
 - Implement solutions directly based on gathered context
-- Use PLAN.md to track progress on incomplete work
+- Use the Progress section of your memory file to track progress on incomplete work
 - Keep the user informed with brief status updates
 - Minimize chat output: focus on significant progress and decisions
 - Default to action over explanation; save details for session documentation
@@ -142,20 +152,20 @@ When completing work, ensure:
 - **Commits**: Use `git-commit` skill for proper commit messages
 - **Completeness**: All aspects of the request are addressed
 
-## Boundaries
+## Best Practices
 
-- **Always do**: 
-  - Use read-only agents to gather information before implementing
-  - Use skills for standardized operations (commits, docs, ADRs)
-  - Test your code before committing
-  - Document significant work in work sessions
-  - Manage session start and end workflows
-  - Avoid committing secrets or sensitive data
-  
-- **Ask first**: 
-  - Before making major architectural changes
-  - When user intent is ambiguous
-  - Before committing breaking changes
+**Always do**: 
+- Use read-only agents to gather information before implementing
+- Use skills for standardized operations (commits, docs, ADRs)
+- Test your code before committing
+- Document significant work in work sessions
+- Manage session start and end workflows
+- Avoid committing secrets or sensitive data
+
+**Ask first**: 
+- Before making major architectural changes
+- When user intent is ambiguous
+- Before committing breaking changes
 
 ## Communication Style
 

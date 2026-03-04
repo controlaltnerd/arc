@@ -27,6 +27,65 @@ def run_git_command(args):
         return None
 
 
+def check_uncommitted_changes():
+    """
+    Check for uncommitted changes in the working directory.
+    
+    Returns dict with:
+    - has_changes: bool indicating if there are uncommitted changes
+    - staged_count: number of staged files
+    - unstaged_count: number of unstaged files
+    - summary: human-readable summary
+    """
+    changes_info = {
+        "has_changes": False,
+        "staged_count": 0,
+        "unstaged_count": 0,
+        "summary": "No uncommitted changes"
+    }
+    
+    try:
+        # Get status in porcelain format for easier parsing
+        result = subprocess.run(
+            ["git", "status", "--porcelain"],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=5
+        )
+        
+        if result.stdout.strip():
+            lines = result.stdout.strip().split('\n')
+            staged = 0
+            unstaged = 0
+            
+            for line in lines:
+                if len(line) < 2:
+                    continue
+                # First character is staged status, second is unstaged
+                if line[0] != ' ' and line[0] != '?':
+                    staged += 1
+                if line[1] != ' ':
+                    unstaged += 1
+            
+            changes_info["has_changes"] = True
+            changes_info["staged_count"] = staged
+            changes_info["unstaged_count"] = unstaged
+            
+            # Build summary
+            parts = []
+            if staged > 0:
+                parts.append(f"{staged} staged")
+            if unstaged > 0:
+                parts.append(f"{unstaged} unstaged")
+            changes_info["summary"] = ", ".join(parts) if parts else "Changes detected"
+        
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired, FileNotFoundError):
+        pass
+    
+    return changes_info
+
+
 def check_branch_sync(current_branch):
     """
     Check sync status between local and remote branches.
@@ -169,6 +228,7 @@ def gather_session_context():
         "git_email": "",
         "current_branch": "unknown",
         "repo_root": "",
+        "uncommitted_changes": None,
         "branch_sync": None,
         "warnings": []
     }
@@ -206,6 +266,10 @@ def gather_session_context():
         context["repo_root"] = repo_root
     else:
         context["warnings"].append("Not in a git repository")
+    
+    # Check for uncommitted changes (only if in a git repo)
+    if context["repo_root"]:
+        context["uncommitted_changes"] = check_uncommitted_changes()
     
     # Check branch sync status (only if in a git repo)
     if context["repo_root"]:

@@ -12,6 +12,8 @@ applyTo: '**'
 
 ## Active Context
 
+## Progress
+
 ---
 
 **Last Updated**:

@@ -84,6 +84,12 @@ Details about the project that may change over time:
 - Ideas that have been explored/attempted and abandoned
 - Ideas that may be explored in an upcoming session
 
+### Progress
+Details about the trajectory of the project:
+- Work in progress from previous sessions
+- Work that the user has expressed they want to focus on in the near future
+- Recent significant changes to the project (include ADR references when relevant)
+
 ## User Settings
 
 User settings are only stored in a separate file: `.github/instructions/user-settings.instructions.md`
@@ -131,7 +137,6 @@ When you need to understand project context:
    - Architectural patterns to follow (check System Patterns in memory)
    - Technical setup requirements (check Tech Context in memory)
    - Known issues, backlogged ideas, additional context (check Active Context in memory)
-   - Project goals and scope (check Project Brief in memory)
 
 2. **Scan relevant sections**:
    - Start with the section most relevant to your need
@@ -166,9 +171,9 @@ Ask yourself:
 - **Active Context**: For known issues, backlogged ideas, additional context
 - **System Patterns**: For architectural decisions or design patterns
 - **Tech Context**: For new tools, dependencies, or setup steps
-- **Project Brief**: Rarely updated; only for fundamental changes to project scope
 - **Product Context**: For changes in product vision or user experience goals
 - **Test Strategy**: For testing philosophy or quality standards
+- **Progress**: For project trajectory and unfinished work in progress
 
 ### 3. Write Clear, Concise Entries
 
@@ -221,6 +226,24 @@ Add to the relevant section with clear warning:
 ## Tech Context
 - ⚠️ Do not use `Promise.all()` for database writes; can cause race conditions
 - Use sequential writes with `for...of` loop instead
+```
+
+### Capturing Current and Near-Future Work
+Update **Progress**:
+```markdown
+## Progress
+
+**In Progress**
+
+- Authentication refactor partially complete - login flow done, password reset pending
+
+**Upcoming Work (User Intent)**
+
+- Add real-time notifications feature
+
+**Project Changes**
+
+- Shifted from REST to GraphQL API (see ADR-007); all endpoints being migrated
 ```
 
 ## File Locations

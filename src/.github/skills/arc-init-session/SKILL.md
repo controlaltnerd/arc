@@ -1,6 +1,6 @@
 ---
-name: arc-init
-description: Initialize session context by gathering git configuration and repository information. DO NOT use this skill unless your instructions explicitly require it.
+name: arc-init-session
+description: Initialize interactive work session with user. Displays context, handles mode selection, and manages VS Code settings. Use at session start by @main-agent only.
 python_dependencies: []
 ---
 
@@ -8,7 +8,7 @@ python_dependencies: []
 
 ## Overview
 
-Initialize session context automatically at the start of each conversation. This skill gathers essential information that will be available throughout the session, reducing redundant queries and providing consistent context to all agents.
+Interactive session initialization for @main-agent. Gathers context, displays information to user, handles work mode selection, and ensures VS Code settings are configured.
 
 ## When to Use
 
@@ -81,23 +81,20 @@ Ensure all Python dependencies are available:
    - Skills requiring missing packages will fail when invoked
    - User can manually install dependencies later
 
-### Step 1: Run Initialization Script
+### Step 1: Load Session Data
 
-Execute the Python script that gathers git and repository information:
+Read the session data JSON from `.github/subagents/session-data.json`.
 
-```bash
-python3 .github/skills/arc-init/scripts/init_session.py
-```
+**Prerequisite**: @main-agent must have already invoked a subagent to run the `arc-init-data` skill and write its output to this file.
 
-The script outputs JSON with the gathered information.
+### Step 2: Parse Session Context
 
-### Step 2: Parse and Store Context
-
-Extract the following from the script output:
+Extract the following from the JSON:
 - `git_username`: User's git configured name
 - `git_email`: User's git configured email
 - `current_branch`: Active git branch
 - `repo_root`: Repository root directory
+- `uncommitted_changes`: Status of working directory changes
 - `warnings`: Any configuration issues detected
 
 ### Step 3: Present Context to User
@@ -250,164 +247,56 @@ After communicating about work modes, check the User Settings from memory:
 **DO NOT proceed past this point until the user has responded.**
 
 **If user requests instructions**, provide the appropriate subset:
-- **For both settings**:
-  ```
-  To enable the required experimental features:
-  1. Open User Settings: `Cmd+,` (macOS) or `Ctrl+,` (Windows/Linux)
-  2. In the search box, type: "chat.useAgentSkills"
-  3. Look for "Chat: Use Agent Skills (Experimental)" and check the box to enable it
-  4. In the search box, type: "chat.customAgentInSubagent"
-  5. Look for "Chat: Custom Agent In Subagent" and check the box to enable it
-  ```
-- **For Agent Skills only**:
-  ```
-  To enable Agent Skills:
-  1. Open User Settings: `Cmd+,` (macOS) or `Ctrl+,` (Windows/Linux)
-  2. In the search box, type: "chat.useAgentSkills"
-  3. Look for "Chat: Use Agent Skills (Experimental)" and check the box to enable it
-  ```
-- **For Custom Subagents only**:
-  ```
-  To enable Custom Subagents:
-  1. Open User Settings: `Cmd+,` (macOS) or `Ctrl+,` (Windows/Linux)
-  2. In the search box, type: "chat.customAgentInSubagent"
-  3. Look for "Chat: Custom Agent In Subagent" and check the box to enable it
-  ```
 
-### Step 9: Explain Modes (if requested)
+#### Enabling Agent Skills
 
-If the user wants to learn more about work modes, provide concise descriptions:
-- **Autonomous**: @main-agent handles everything until commit time
-- **Orchestrated**: User approves each step manually
-- **Supervised**: @main-agent handles planning and information gathering automatically, user approves high-impact operations
+Tell the user:
+```
+To enable Agent Skills:
+1. Open VS Code Settings (Cmd/Ctrl + ,)
+2. Search for "Chat: Use Agent Skills"
+3. Check the box to enable
+4. Restart VS Code for the change to take effect
 
-### Step 10: Update User Settings
-
-If the user changes mode, update `.github/instructions/user-settings.instructions.md`.
-
-### Step 11: Assess Work
-
-Determine whether this is a continuation of previous work or a fresh start.
-
-### Step 12: Review Context
-
-Help the user understand the project state by referencing ROADMAP and recent CHANGELOG entries.
-
-## Integration with Other Skills
-
-Other skills that need user attribution should reference the session context:
-
-**work-session skill:**
-```markdown
-**Getting Author Name:**
-Use the git username from arc-init session context. If arc-init has not run or returned "User", use "User" as fallback.
+Let me know once you've enabled it, or if you encounter any issues.
 ```
 
-**adr skill:**
-```markdown
-**Author Field:**
-Populate with git username from arc-init session context. Default to "User" if not available.
+#### Enabling Custom Agents in Subagent
+
+Tell the user:
+```
+To enable Custom Agent in Subagent:
+1. Open VS Code Settings (Cmd/Ctrl + ,)
+2. Search for "Custom Agent in Subagent"
+3. Check the box to enable
+4. Restart VS Code for the change to take effect
+
+Let me know once you've enabled it, or if you encounter any issues.
 ```
 
-## Script Output Format
+**After user confirms**, update memory:
+- Set "Agent Skills: Enabled" in user-settings.instructions.md (if they confirmed enabling it)
+- Set "Custom Subagents: Enabled" in user-settings.instructions.md (if they confirmed enabling it)
 
-The initialization script outputs JSON:
+### Step 9: Ready for Work
 
-```json
-{
-  "git_username": "Jane Developer",
-  "git_email": "jane@example.com",
-  "current_branch": "feature/new-feature",
-  "repo_root": "/Users/jane/git/project",
-  "branch_sync": {
-    "current_branch_status": "synced",
-    "out_of_sync_branches": [],
-    "fetch_failed": false,
-    "fetch_error": null
-  },
-  "warnings": []
-}
+Once initialization is complete, inform the user:
+```
+Initialization complete. Ready to begin work on your request.
 ```
 
-Or with branch sync issues:
-
-```json
-{
-  "git_username": "Jane Developer",
-  "git_email": "jane@example.com",
-  "current_branch": "feature/new-feature",
-  "repo_root": "/Users/jane/git/project",
-  "branch_sync": {
-    "current_branch_status": "behind",
-    "out_of_sync_branches": [
-      {
-        "branch": "feature/new-feature",
-        "status": "behind",
-        "ahead": 0,
-        "behind": 3,
-        "tracking": "origin/feature/new-feature"
-      },
-      {
-        "branch": "main",
-        "status": "ahead",
-        "ahead": 2,
-        "behind": 0,
-        "tracking": "origin/main"
-      }
-    ],
-    "fetch_failed": false,
-    "fetch_error": null
-  },
-  "warnings": []
-}
-```
-
-Or with warnings if configuration is missing:
-
-```json
-{
-  "git_username": "User",
-  "git_email": "",
-  "current_branch": "main",
-  "repo_root": "/Users/jane/git/project",
-  "branch_sync": null,
-  "warnings": ["Git user.name not configured"]
-}
-```
+Then proceed to acknowledge and address their original prompt.
 
 ## Error Handling
 
-If the script fails to run:
-1. Continue with session using "User" as fallback
-2. Warn @main-agent that initialization failed and provide details
-3. Do not block user's work
+- **Git not available**: Continue with warnings, use "User" as default username
+- **Not in git repository**: Continue with warnings, limited git features available
+- **Git fetch timeout**: Continue with warnings, skip branch sync display
+- **Authentication issues**: Continue with warnings, advise user to check credentials
 
-If git commands fail:
-1. Use sensible defaults (e.g., "User", "Unknown branch")
-2. Include warnings in output
-3. Continue with session
+## Notes
 
-## Implementation Notes
-
-- **Non-blocking**: Initialization failure should never prevent work
-- **Silent success**: Only show output if there are warnings or errors
-- **One-time per session**: Run once at session start, not repeatedly
-- **No git modifications**: Never modify git config, only read it
-
-## Best Practices
-
-**Always do**:
-
-- Run initialization automatically at the start of every new conversation
-- Present session context clearly to the user if any warnings exist
-- Avoid initialization output to user if successful
-- Inform the user of missing configuration
-- Fall back gracefully to "User" if git username is not configured
-- Keep initialized context available throughout the entire session
-- Use session context in other skills (work-session, adr) for attribution
-- Continue with the session even if initialization fails or git config is missing
-
-**Ask first**:
-
-- How the user would like to be referred to if git config is missing
-- To update git global config if user provides a preferred name
+- This is an interactive skill - displays information and handles user responses
+- For programmatic data gathering only, use `arc-init-data` skill instead
+- Both skills use the same underlying Python script
+- The script is read-only and safe to run repeatedly
