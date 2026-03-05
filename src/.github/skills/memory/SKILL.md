@@ -14,6 +14,8 @@ You can use this skill to:
 - **Update** memory to capture new learnings and knowledge
 - **Curate** memory to eliminate redundancy and maintain clarity
 
+**NOTE**: Only add information to memory that is not already found in agent-oriented files or documentation, or else easily inferred. Think of the memory file as your personal expertise built through experiencing the development of this project. It should supplement documented information, not duplicate it.
+
 ## When to Use
 
 **Reading memory**:
@@ -159,6 +161,7 @@ Ask yourself:
 - Did we discover a solution to a non-obvious problem?
 - Are there patterns or practices we should follow going forward?
 - Is there active work that will continue in the next session?
+- Is any of this already captured in any agent-oriented file or documentation? If so, don't add it to memory.
 
 ### 2. Choose the Right File and Section
 
