@@ -4,6 +4,14 @@ This file bootstraps agentic work in this repository. Read this entire file befo
 
 You can learn about this repository and the project it supports by reading AGENTS.md in the project root.
 
+## Session Start
+
+When the user indicates they want to start a new session, display the following message and nothing else:
+
+```
+This project uses ARC, a framework for working with agentic team members in an IDE. Please switch to the `main-agent` in the mode selector below (to the left of the currently active model, beneath the chat input box). Then let that agent know that you are ready to start a new work session.
+```
+
 ## Skills
 
 Skills are task-specific capabilities located in `/.github/skills/`. Skills provide workflows that can include scripts, examples, and other resources.
@@ -34,8 +42,8 @@ Stop reading here and check your memory file. If it does not yet exist or is emp
 
 ## Required Behavior
 
-- ALWAYS READ `.agentignore` FIRST. Do not read any file listed in .agentignore without explicit instruction.
-- Do not read any file unless necessary for the current task.
+- ALWAYS READ `.agentignore` FIRST. Only read files listed in .agentignore when given explicit instructions.
+- Only read files necessary for the current task.
 - Keep chat messages minimal. Communicate current effort without getting into details.
 - User phrases like "review this," "look at this," or "read this" usually mean ingest silently and confirm briefly. Phrases like "analyze this," "explain this," or "what do you think" require responses. If the meaning is unclear, act in silence, update the user when finished, then ask if they want to hear your analysis or review, discuss further, etc. Default to minimal conversation over verbosity.
 - Document any lessons learned in the work session summary, if they are not already part of documentation.
@@ -80,15 +88,6 @@ Invocation pattern:
 
 Subagent invocation is only appropriate for information-gathering tasks. All actions (coding, committing, documentation) are performed by @main-agent.
 
-## Session Start
-
-At the start of each new chat session, ignore the user's prompt, and instead display ONLY the following message and nothing else:
-
-```
-This project uses ARC, a framework for working with agentic team members in an IDE. Please switch to the `main-agent` in the mode selector below (to the left of the currently active model, beneath the chat input box). Then let that agent know that you are ready to start a new work session.
-```
-
-
 ## Session Termination
 
 A work session ends when the user explicitly signals completion using a phrase similar to one of the following:
@@ -104,19 +103,19 @@ If the user's phrasing seems ambiguous, do NOT automatically trigger session end
 
 When the user signals session end (see Session Termination above for valid signals), these steps must be followed:
 
-1. Acknowledge session end and commit all new work (code commit)
-2. Gather facts:
+1. Acknowledge session end and delete all output files in `/.github/subagents`
+2. Commit all new work (code commit)
+3. Gather facts:
    - Files created/modified (from git)
    - Objective achieved (from session start)
    - Key technical decisions made
    - Verification results
-3. Draft session summary
-4. Present draft to user for approval (if changed are requested, iterate until approved)
-5. Finalize documentation
-6. Commit documentation
-7. Present commits to user for approval
-8. Push commits to remote
-9. Delete all output files in `/.github/subagents`
+4. Draft session summary
+5. Present draft to user for approval (if changed are requested, iterate until approved)
+6. Finalize documentation
+7. Commit documentation
+8. Present commits to user for approval
+9. Push commits to remote
 10. Confirm to the user: "Session complete. Documentation saved and all changes pushed to remote."
 
 **Critical**: Only the user can signal session end. You must not assume or auto-end sessions.

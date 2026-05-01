@@ -139,4 +139,4 @@ This guide clarifies **when** each field should be populated and **who** is resp
 
 ---
 
-Session completed on {{DATE}} by {{HUMAN_CONTRIBUTOR}} + {{AGENT_NAME}}
+Session completed on {{DATE}} by {{HUMAN_CONTRIBUTOR}}/{{AGENT_NAME}}
