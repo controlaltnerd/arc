@@ -8,7 +8,9 @@ This document tracks planned work for the repository.
 
 ## Priority
 
-- P1:
+- P4: Streamline agent skills
+- P5: Document ROADMAP item format and best practices for future additions
+- P6: Add instructions to align contents of TODO.md and the todo list tool
 
 ## Nice-to-Have
 
@@ -24,4 +26,4 @@ This document tracks planned work for the repository.
 
 ---
 
-**Last Updated**: 2026.01.28
+**Last Updated**: 2026.02.10

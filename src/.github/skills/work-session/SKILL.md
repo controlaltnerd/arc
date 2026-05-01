@@ -9,6 +9,8 @@ description: Manage work session summaries to document discrete units of work. C
 
 Manage work session summaries that document discrete units of work. Work sessions provide a narrative record of what was accomplished, why decisions were made, and what comes next. They serve as historical documentation and context for future work.
 
+Work session summaries are only for sessions that involve code changes or major documentation updates.
+
 You can use this skill to:
 - **Create** new work session summaries at the end of sessions
 - **Update** existing work sessions with additional information
@@ -17,7 +19,7 @@ You can use this skill to:
 ## When to Use
 
 **Creating work sessions**:
-- At the end of a work session when code has been committed
+- At the end of a work session after code has been committed
 - After completing a discrete unit of work (feature, fix, refactoring)
 - When the user indicates session completion ("done", "wrap up", "finish session")
 - Before finalizing documentation commits
@@ -34,11 +36,6 @@ You can use this skill to:
 - When onboarding to a codebase or project area
 - When investigating why certain decisions were made
 - When preparing context for new related work
-
-**Do NOT use for**:
-- Work that hasn't been committed yet
-- Minor documentation-only changes
-- Sessions where no code was changed
 
 ## Work Session Structure
 
@@ -86,13 +83,13 @@ When researching past work:
 
 ## Creating New Work Sessions
 
-### 1. Verify Prerequisites
+### 1. Prerequisites
 
-Before creating a work session:
+Before creating a work session, verify that:
 
-1. **Code has been committed**: Work session references the code commit (not the documentation commit)
-2. **Work is complete or at a stopping point**: Session represents a discrete unit
-3. **Changes are meaningful**: Not just trivial documentation updates
+1. Code changes in this session have been committed
+2. Work is complete or at a stopping point
+3. Changes are more than minor documentation updates
 
 ### 2. Gather Session Information
 
@@ -295,21 +292,21 @@ Checklist for post-session memory curation:
 
 ### 5. File Naming and Placement
 
-**Location**: Ask the user where work sessions should be stored (common: `docs/work-sessions/`, `.github/docs/work-sessions/`)
+**Location**: Work sessions should be stored in `docs/work-sessions/` unless your memory specifies otherwise.
 
 **Naming Convention**: 
 ```
-YYYY.MM.DD-descriptor.md
+NNN-descriptor.md
 ```
 
 Where:
-- `YYYY.MM.DD`: Session date
+- `NNN`: Sequential numbering
 - `descriptor`: 1-2 words similar to commit message (use kebab-case)
 
 **Examples**:
-- `2026.01.28-jwt-auth.md`
-- `2026.01.28-ui-refactor.md`
-- `2026.01.28-bug-fix.md`
+- `001-jwt-auth.md`
+- `002-ui-refactor.md`
+- `003-bug-fix.md`
 
 ### 6. Session-to-Commit Mapping
 
@@ -327,8 +324,8 @@ Code commits:
 - def5678: Add refresh token rotation
 
 Work sessions:
-- 2026.01.28-auth-endpoints.md (references abc1234)
-- 2026.01.28-token-rotation.md (references def5678)
+- 001-auth-endpoints.md (references abc1234)
+- 002-token-rotation.md (references def5678)
 ```
 
 ### 7. User Approval Process
@@ -372,25 +369,18 @@ This avoids self-referential commit tracking.
 
 ## Best Practices
 
-### DO
+**Always do:**
 
-- ✅ Add notes during work, not just at the end
-- ✅ One or two sentences per point
-- ✅ List specific commands that were run
-- ✅ Reference test specifications and results
-- ✅ Don't finalize without user review of strategic sections
-- ✅ Use current date in YYYY.MM.DD format
-- ✅ Commit hash is for code work, not documentation 
-
-### DON'T
-
-- ❌ Create work session before code is committed
-- ❌ Include documentation commit hash instead of code commit hash
-- ❌ Write long paragraphs instead of concise bullets
-- ❌ Skip user approval for strategic sections
-- ❌ Miss test results or verification commands
-- ❌ Forget to link to related documentation
-- ❌ Bypass memory update checklist
+- Add notes during work, not just at the end
+- Write one or two sentences per point
+- List specific commands that were run
+- Reference test specifications and results
+- Use current date in YYYY.MM.DD format
+- Record commit hash for code work, not documentation
+- Commit code before creating work session documents
+- Use concise bullets instead of long paragraphs
+- Link to related documentation
+- Refer user to document for approval
 
 ## Template Reference
 

@@ -6,8 +6,8 @@ tools: ['edit', 'read/readFile']
 
 The user is asking you to end this work session.
 
-Complete the following tasks to end the session, engaging the listed agent for each task:
-1. **Maintainer**: Commit all changes
-2. **Librarian**: Document the work completed
-3. **Maintainer**: Commit documentation
-4. **Maintainer**: Push commits
+Complete the following tasks to end the session:
+1. Commit all changes
+2. Document the work completed using the work-session skill
+3. Commit documentation
+4. Push commits

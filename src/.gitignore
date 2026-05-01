@@ -271,3 +271,6 @@ $RECYCLE.BIN/
 ### ARC Framework ###
 # User-specific settings (should not be committed)
 user-settings.instructions.md
+
+# Subagent output files (temporary, cleared on each invocation)
+.github/subagents/*

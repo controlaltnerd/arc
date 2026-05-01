@@ -1,6 +1,6 @@
 # ARC - Agentic Runtime Conventions
 
-ARC is an open-source framework for deploying a team of persistent agents in IDEs with a focus on restraint and quality.
+ARC is an open-source framework for deploying a persistent agent for pair programming in IDEs with a focus on restraint and quality.
 
 **Bottom line: ARC makes agents behave.**
 
@@ -56,20 +56,22 @@ After installation, ARC provides several components to structure agent behavior:
 
 | Component | Location | Purpose |
 |-----------|----------|---------|
-| **Agents** | `.github/agents/` | Specialized AI personas (Coordinator, Architect, Coder, etc.) |
+| **Agents** | `.github/agents/` | Specialized AI personas that can be used by the main agent for read-only activities |
 | **Rules** | `.github/instructions/` | Coding standards applied via glob patterns |
 | **Commands** | `.github/prompts/` | Reusable user-invoked prompt files |
 | **Skills** | `.github/skills/` | Portable, task-specific capabilities with scripts and resources |
 
 ### Getting Started
 
-1. Start conversations with `@coordinator-agent` for general work
-2. @coordinator-agent will orchestrate specialized agents as needed
-3. Skills are automatically activated based on your prompts
+1. Start conversations with `@main-agent`
+2. @main-agent will orchestrate subagents as needed
+3. Skills are automatically activated based on context
 4. Use `/` commands to invoke reusable prompts
 
 ### Skills
 
 Skills follow the [Agent Skills open standard](https://agentskills.io/) and work across GitHub Copilot in VS Code, Copilot CLI, and Copilot coding agent. Unlike instructions that are always applied, skills load on-demand when relevant to your task.
 
-To enable skills, set `chat.useAgentSkills: true` in VS Code settings. (ARC will prompt you to do this at the start of a work session)
+To enable skills, set `chat.useAgentSkills: true` in VS Code settings. (ARC will prompt you to do this at the start of a work session.)
+
+Note that an agent's use of skills in lieu of its own latent understanding of how to perform a task is not deterministic and can vary greatly, depending on factors such as the current conversation, how instruction files are written, and how the underlying model was trained.
